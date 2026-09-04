@@ -1,0 +1,72 @@
+{
+  "brand": "JS Collections",
+  "heroTitle": "Style That Speaks",
+  "motto": "Using every aspect—from fabric to accessories—our collections celebrate individuality and empower women.",
+  "about": "At Jaweriya Saroash, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation—each piece is carefully crafted to celebrate individuality and inspire confidence.",
+  "logo": "logo.jpg",
+  "heroImage": "hsi.png",
+  "currency": "PKR",
+  "theme": "dark",
+  "links": {
+    "instagram": "https://instagram.com/jaweriyas_official",
+    "whatsapp": "https://wa.me/923400434334",
+    "email": "mailto:jaweriyasofficial@gmail.com",
+    "display": "Instagram · WhatsApp · Email"
+  },
+  "sections": [
+    {
+      "id": "bedsheets",
+      "name": "Bedsheets",
+      "products": [
+        {
+          "id": "b1",
+          "name": "Classic Luxury Bedsheet",
+          "price": "2750",
+          "specs": "Soft premium fabric · Double bed",
+          "image": "1.jpg"
+        },
+        {
+          "id": "b2",
+          "name": "Royal Maroon Bedsheet",
+          "price": "2950",
+          "specs": "Elegant print · Double bed",
+          "image": "2.jpg"
+        },
+        {
+          "id": "b3",
+          "name": "Midnight Bloom Bedsheet",
+          "price": "3100",
+          "specs": "Comfort finish · Double bed",
+          "image": "3.jpg"
+        },
+        {
+          "id": "b4",
+          "name": "Velvet Touch Bedsheet",
+          "price": "3250",
+          "specs": "Rich texture · Double bed",
+          "image": "4.jpg"
+        }
+      ]
+    },
+    {
+      "id": "cloths",
+      "name": "Cloths",
+      "products": [
+        {
+          "id": "c1",
+          "name": "Signature Fabric",
+          "price": "1850",
+          "specs": "Premium fabric · New arrival",
+          "image": "5.jpg"
+        },
+        {
+          "id": "c2",
+          "name": "Everyday Elegance",
+          "price": "2050",
+          "specs": "Soft weave · Versatile",
+          "image": "6.jpg"
+        }
+      ]
+    }
+  ]
+}
