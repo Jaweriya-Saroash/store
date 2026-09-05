@@ -25,27 +25,61 @@
   --radius:24px;
 }
 body.light-theme{
-  --navy:#eef2f7;--navy2:#f8fafc;--glass:rgba(255,255,255,.58);
-  --glass-strong:rgba(255,255,255,.72);--line:rgba(18,31,48,.12);
-  --cream:#192333;--muted:#5e6a7a;--white:#101827;
-  --shadow:0 22px 60px rgba(28,43,64,.14);
+  --navy:#f8f4ee;--navy2:#fffdf9;--glass:rgba(255,255,255,.075);
+  --glass-strong:rgba(255,255,255,.115);--line:rgba(43,34,28,.12);
+  --cream:#241f1b;--muted:#6d655d;--white:#211c18;
+  --shadow:0 22px 60px rgba(64,49,36,.13);
+  color-scheme:light;
 }
 body.light-theme{
-  background:linear-gradient(150deg,#edf2f7,#f9fbfd 48%,#e9eef5);
+  background:
+    radial-gradient(900px 500px at 6% -10%,rgba(184,43,73,.11),transparent 62%),
+    radial-gradient(760px 460px at 105% 22%,rgba(176,145,102,.11),transparent 60%),
+    linear-gradient(150deg,#faf7f2 0%,#fffdf9 46%,#f2ede6 100%);
 }
-body.light-theme .topbar{background:rgba(245,248,252,.78);border-bottom-color:rgba(18,31,48,.08)}
-body.light-theme .sub,body.light-theme .specs,body.light-theme .muted{color:#657184}
-body.light-theme .search{background:rgba(255,255,255,.55)}
-body.light-theme .search input{color:#172234}
-body.light-theme .outline{color:#1d2a3b;background:rgba(255,255,255,.48)}
-body.light-theme .card{background:rgba(255,255,255,.48)}
-body.light-theme .contact-item{background:rgba(255,255,255,.44);border-color:rgba(18,31,48,.08)}
-body.light-theme .form-control,body.light-theme .filter{background:rgba(255,255,255,.58);color:#1a2637;border-color:rgba(18,31,48,.13)}
-body.light-theme .modal-wrap{background:rgba(226,232,240,.69)}
-body.light-theme .admin-overlay{background:rgba(231,237,244,.82)}
-body.light-theme .admin-tab{color:#455267}
-body.light-theme .admin-tab.active,body.light-theme .admin-tab:hover{color:#182335}
-body.light-theme footer{border-top-color:rgba(18,31,48,.08)}
+body.light-theme:before{
+  background:
+    radial-gradient(circle at 20% 30%,rgba(255,255,255,.38),transparent 20%),
+    radial-gradient(circle at 80% 70%,rgba(184,43,73,.035),transparent 20%);
+}
+body.light-theme .topbar{background:rgba(255,252,247,.72);border-bottom-color:rgba(43,34,28,.08)}
+body.light-theme .navlinks a,body.light-theme .action{color:#4c443d}
+body.light-theme .navlinks a:hover,body.light-theme .action:hover{background:rgba(43,34,28,.06);color:#1f1a17}
+body.light-theme .kicker{color:#8c4f5d}
+body.light-theme .hero p{color:#635b54}
+body.light-theme .hero h1 span{color:#a52f4d}
+body.light-theme .search{background:rgba(255,255,255,.38);border-color:rgba(43,34,28,.10)}
+body.light-theme .search input{color:#2a241f}
+body.light-theme .search input::placeholder{color:#8b827a}
+body.light-theme .outline{color:#352d27;background:rgba(255,255,255,.20);border-color:rgba(43,34,28,.12)}
+body.light-theme .outline:hover{background:rgba(255,255,255,.36)}
+body.light-theme .glass{
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.055));
+  border-color:rgba(43,34,28,.11);
+}
+body.light-theme .card{background:rgba(255,255,255,.13);border-color:rgba(43,34,28,.10)}
+body.light-theme .specs{color:#756c63}
+body.light-theme .price{color:#8f2b49}
+body.light-theme .contact-item{background:rgba(255,255,255,.12);border-color:rgba(43,34,28,.08)}
+body.light-theme .contact-item:hover{background:rgba(255,255,255,.23)}
+body.light-theme .form-control,body.light-theme .filter{background:rgba(255,255,255,.24);color:#2a241f;border-color:rgba(43,34,28,.14)}
+body.light-theme .form-control::placeholder,body.light-theme .filter::placeholder{color:#8a8178}
+body.light-theme label{color:#514940}
+body.light-theme .modal-wrap{background:rgba(221,214,205,.55)}
+body.light-theme .admin-overlay{background:rgba(226,219,211,.72)}
+body.light-theme .admin-tab{color:#5a5149}
+body.light-theme .admin-tab.active,body.light-theme .admin-tab:hover{color:#251f1b;background:rgba(43,34,28,.055)}
+body.light-theme .admin-product{background:rgba(255,255,255,.10)}
+body.light-theme .notice{background:rgba(184,43,73,.07);border-color:rgba(184,43,73,.18);color:#713240}
+body.light-theme .save-indicator{background:rgba(255,255,255,.15);color:#574d45}
+body.light-theme .save-indicator.saving{color:#8b5f68}
+body.light-theme .save-indicator.saved{color:#2f6f49}
+body.light-theme .save-indicator.error{color:#a33b46}
+body.light-theme footer{border-top-color:rgba(43,34,28,.08)}
+body.light-theme .muted,body.light-theme .sub{color:#6d655d}
+body.light-theme .x{color:#322a24}
+body.light-theme .admin-top strong{color:#251f1b}
+body.light-theme .hero-card{background:#e7dfd5;border-color:rgba(43,34,28,.10)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -229,6 +263,20 @@ button,a,.card,.glass,.form-control,.search,.socials a,.contact-item,.admin-tab,
 .save-indicator.saving{color:#f5d7dd}
 .save-indicator.saved{color:#b9ecc9}
 .save-indicator.error{color:#ffc2c8}
+.admin-login-card{max-width:430px;padding:26px}
+.admin-login-card .modal-head{margin-bottom:20px}
+.admin-login-card .modal-head h3{font-family:"DM Sans",sans-serif;font-size:1.15rem;font-weight:700;letter-spacing:-.1px}
+.password-field{position:relative}
+.password-field .form-control{padding-right:48px}
+.password-toggle{position:absolute;top:50%;right:7px;transform:translateY(-50%);width:38px;height:38px;border:0;border-radius:10px;background:transparent;color:#8d8278;cursor:pointer;display:grid;place-items:center}
+.password-toggle:hover{background:rgba(255,255,255,.08);color:var(--cream)}
+.login-status{min-height:20px;margin:-2px 0 13px;color:#a9b3bf;font-size:.84rem}
+.login-status.error{color:#d97989}
+.login-submit{width:100%}
+body.light-theme .password-toggle{color:#776e66}
+body.light-theme .password-toggle:hover{background:rgba(43,34,28,.06);color:#332a24}
+body.light-theme .login-status{color:#746b63}
+body.light-theme .login-status.error{color:#a33b46}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 @media (prefers-reduced-motion: reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
@@ -375,11 +423,13 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 </div>
 
 <div id="admin-login" class="modal-wrap">
- <div class="modal glass small">
-  <div class="modal-head"><h3>Admin Access</h3><button class="x" onclick="closeModal('admin-login')" aria-label="Close admin login">&times;</button></div>
-  <p class="sub">Administrator shortcut: double-click the logo or press Ctrl + Shift + A.</p>
-  <div class="notice" id="login-status">Your password is checked securely on the Vercel server.</div>
-  <form id="admin-login-form"><div class="field"><label>Admin password</label><input class="form-control" id="admin-password" type="password" autocomplete="current-password" required></div><button class="btn" type="submit">Open Admin Panel</button></form>
+ <div class="modal glass small admin-login-card">
+  <div class="modal-head"><h3>Admin</h3><button class="x" onclick="closeModal('admin-login')" aria-label="Close admin login">&times;</button></div>
+  <form id="admin-login-form">
+   <div class="field"><label for="admin-password">Password</label><div class="password-field"><input class="form-control" id="admin-password" type="password" autocomplete="current-password" required><button class="password-toggle" id="password-toggle" type="button" aria-label="Show password" title="Show password"><i class="fa-solid fa-eye"></i></button></div></div>
+   <div class="login-status" id="login-status" aria-live="polite"></div>
+   <button class="btn login-submit" type="submit">Sign in</button>
+  </form>
  </div>
 </div>
 
@@ -649,18 +699,36 @@ document.getElementById("order-form").addEventListener("submit",e=>{
 // Admin
 document.getElementById("nav-logo").addEventListener("dblclick",openAdminLogin);
 document.addEventListener("keydown",e=>{if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="a"){e.preventDefault();openAdminLogin()}});
-function openAdminLogin(){openModal("admin-login");setTimeout(()=>document.getElementById("admin-password").focus(),50)}
+function openAdminLogin(){
+ const password=document.getElementById("admin-password");
+ const status=document.getElementById("login-status");
+ password.value="";
+ status.textContent="";
+ status.className="login-status";
+ openModal("admin-login");
+ setTimeout(()=>password.focus(),50);
+}
+document.getElementById("password-toggle").addEventListener("click",()=>{
+ const input=document.getElementById("admin-password"), btn=document.getElementById("password-toggle");
+ const visible=input.type==="text";
+ input.type=visible?"password":"text";
+ btn.setAttribute("aria-label",visible?"Show password":"Hide password");
+ btn.setAttribute("title",visible?"Show password":"Hide password");
+ btn.innerHTML=visible?'<i class="fa-solid fa-eye"></i>':'<i class="fa-solid fa-eye-slash"></i>';
+});
 document.getElementById("admin-login-form").addEventListener("submit",async e=>{
  e.preventDefault();
- const status=document.getElementById("login-status"); status.textContent="Checking password…";
+ const status=document.getElementById("login-status"), submit=e.target.querySelector(".login-submit");
+ status.className="login-status"; status.textContent="Checking…"; submit.disabled=true;
  try{
   const r=await fetch("/api/auth",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({password:document.getElementById("admin-password").value})});
   const result=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(result.error||"Login failed");
   sessionStorage.setItem("js_admin_session",result.session||"");
   closeModal("admin-login"); document.getElementById("admin-password").value="";
-  status.textContent="Your password is checked securely on the Vercel server."; openAdmin();
- }catch(err){status.textContent=err.message||"Incorrect admin password.";}
+  openAdmin();
+ }catch(err){status.className="login-status error";status.textContent=err.message||"Incorrect password.";document.getElementById("admin-password").focus();
+ }finally{submit.disabled=false;}
 });
 
 function openAdmin(){document.getElementById("admin-panel").classList.add("show");setSaveStatus("","Ready to edit. Saves commit to the GitHub repository.");populateAdmin()}
