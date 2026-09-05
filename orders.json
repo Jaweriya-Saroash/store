@@ -4,11 +4,15 @@
     "createdAt": "2026-09-05T20:19:23.384Z",
     "orderNumber": "001",
     "pin": "6297",
-    "status": "Order received",
+    "status": "Pending payment",
     "statusHistory": [
       {
         "status": "Order received",
         "at": "2026-09-05T20:19:23.385Z"
+      },
+      {
+        "status": "Pending payment",
+        "at": "2026-09-05T20:22:06.056Z"
       }
     ],
     "customer": {
