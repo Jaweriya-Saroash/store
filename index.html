@@ -99,6 +99,8 @@ body.light-theme .hero-control{background:rgba(255,252,247,.80);color:#251d18;bo
 body.light-theme .hero-control:hover{background:rgba(255,255,255,.96);color:#17110e}
 body.light-theme .hero-dot{background:rgba(43,34,28,.28)}
 body.light-theme .hero-dot.active{background:#3a2b23}
+body.light-theme .order-item{background:rgba(255,255,255,.55)}
+body.light-theme .sold-badge{background:rgba(43,34,28,.86)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
@@ -310,6 +312,7 @@ body.light-theme .login-status{color:#746b63}
 body.light-theme .login-status.error{color:#a33b46}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
+.price del{opacity:.58;font-weight:600;margin-right:5px}.price strong{font-weight:800}.sold-out .card-img img{filter:grayscale(.18)}.sold-badge{position:absolute;left:12px;top:12px;padding:6px 9px;border-radius:99px;background:rgba(20,20,20,.78);color:#fff;font-size:.74rem;font-weight:800;letter-spacing:.3px;z-index:2}.card-img{position:relative}.product-switch{display:inline-flex!important;align-items:center;gap:6px;margin:0!important;padding:8px 9px;border:1px solid var(--line);border-radius:11px;white-space:nowrap}.product-switch input{accent-color:var(--red2)}.order-item{padding:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035);margin-bottom:12px}.order-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding-bottom:11px;border-bottom:1px solid var(--line)}.order-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:16px;padding-top:13px}.order-grid b{display:block;margin-bottom:5px}.order-grid ul{margin:0;padding-left:18px}.order-grid li{margin:2px 0}.admin-tab{flex-shrink:0}.detail-price del{opacity:.6}@media(max-width:1100px){.order-grid{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion: reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 
 @media(max-width:980px){
@@ -330,7 +333,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
  .card{border-radius:16px}.card-body{padding:11px}.specs{font-size:.77rem}.card-actions{flex-direction:column}.card-actions button{width:100%}
  .about-grid,.contact-grid{grid-template-columns:1fr}.about-copy,.contact-card,.contact-info{padding:22px}
  .form-row,.admin-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center;gap:10px}.socials{gap:6px}.socials a{width:34px;height:34px} footer{padding:10px 0 12px;margin-top:8px}.footer-inner{gap:7px}.muted{font-size:.8rem}
- .admin-product{grid-template-columns:56px 1fr}.admin-product .row-actions{grid-column:2}
+ .admin-product{grid-template-columns:56px 1fr}.admin-product .row-actions{grid-column:2}.order-grid{grid-template-columns:1fr}.order-head{flex-direction:column}.product-switch{font-size:.78rem}
 }
 </style>
 </head>
@@ -455,9 +458,9 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
   <form id="order-form">
    <div class="field"><label>Name</label><input class="form-control" id="order-name" required></div>
    <div class="field"><label>Contact No.</label><input class="form-control" id="order-contact" required></div>
+   <div class="field"><label>Email <span class="muted">(optional)</span></label><input class="form-control" id="order-email" type="email" autocomplete="email" placeholder="Optional"></div>
    <div class="field"><label>Address</label><textarea class="form-control" id="order-address" rows="3" required></textarea></div>
-   <div class="field"><label>Order Method</label><div class="row"><label><input type="radio" name="orderMethod" value="email" checked> Email</label><label><input type="radio" name="orderMethod" value="whatsapp"> WhatsApp</label></div></div>
-   <button class="btn" type="submit">Submit Order</button>
+   <button class="btn" type="submit" id="submit-order-btn">Submit Order</button>
   </form>
  </div>
 </div>
@@ -481,6 +484,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
     <button class="admin-tab active" data-panel="content-panel">Brand & Content</button>
     <button class="admin-tab" data-panel="sections-panel">Sections & Products</button>
     <button class="admin-tab" data-panel="links-panel">Social & Contact</button>
+    <button class="admin-tab" data-panel="orders-panel">Orders</button>
     <button class="admin-tab" data-panel="settings-panel">Settings</button>
    </aside>
    <section class="admin-main">
@@ -507,6 +511,10 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
        <div class="field"><label>Display contact text</label><input class="form-control" data-link="display"></div>
       </div>
       <button class="btn" onclick="saveLinks()">Save Social & Contact</button>
+    </div>
+    <div id="orders-panel" class="panel">
+      <div class="row" style="justify-content:space-between;margin-bottom:15px"><div><h3 style="margin:0">Orders</h3><div class="muted">Orders received from customers. Saved privately on the server.</div></div><button class="btn outline tiny" onclick="loadAdminOrders()"><i class="fa-solid fa-rotate"></i> Refresh</button></div>
+      <div id="admin-orders"></div>
     </div>
     <div id="settings-panel" class="panel">
       <div class="admin-grid">
@@ -538,14 +546,14 @@ const DEFAULT_DATA = {
   },
   sections:[
     {id:"bedsheets",name:"Bedsheets",products:[
-      {id:"b1",name:"Classic Luxury Bedsheet",price:"2750",specs:"Soft premium fabric · Double bed",image:"1.jpg"},
-      {id:"b2",name:"Royal Maroon Bedsheet",price:"2950",specs:"Elegant print · Double bed",image:"2.jpg"},
-      {id:"b3",name:"Midnight Bloom Bedsheet",price:"3100",specs:"Comfort finish · Double bed",image:"3.jpg"},
-      {id:"b4",name:"Velvet Touch Bedsheet",price:"3250",specs:"Rich texture · Double bed",image:"4.jpg"}
+      {id:"b1",name:"Classic Luxury Bedsheet",price:"2750",oldPrice:"",soldOut:false,specs:"Soft premium fabric · Double bed",image:"1.jpg"},
+      {id:"b2",name:"Royal Maroon Bedsheet",price:"2950",oldPrice:"",soldOut:false,specs:"Elegant print · Double bed",image:"2.jpg"},
+      {id:"b3",name:"Midnight Bloom Bedsheet",price:"3100",oldPrice:"",soldOut:false,specs:"Comfort finish · Double bed",image:"3.jpg"},
+      {id:"b4",name:"Velvet Touch Bedsheet",price:"3250",oldPrice:"",soldOut:false,specs:"Rich texture · Double bed",image:"4.jpg"}
     ]},
     {id:"cloths",name:"Cloths",products:[
-      {id:"c1",name:"Signature Fabric",price:"1850",specs:"Premium fabric · New arrival",image:"5.jpg"},
-      {id:"c2",name:"Everyday Elegance",price:"2050",specs:"Soft weave · Versatile",image:"6.jpg"}
+      {id:"c1",name:"Signature Fabric",price:"1850",oldPrice:"",soldOut:false,specs:"Premium fabric · New arrival",image:"5.jpg"},
+      {id:"c2",name:"Everyday Elegance",price:"2050",oldPrice:"",soldOut:false,specs:"Soft weave · Versatile",image:"6.jpg"}
     ]}
   ]
 };
@@ -568,6 +576,7 @@ function loadData(){
   try{
     const parsed=JSON.parse(saved);
     const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links}};
+    merged.sections=(merged.sections||[]).map(s=>({...s,products:(s.products||[]).map(p=>({...p,oldPrice:String(p.oldPrice??""),soldOut:Boolean(p.soldOut)}))}));
     merged.theme=localTheme;
     return merged;
   }catch(e){const fallback=structuredClone(DEFAULT_DATA);fallback.theme=localTheme;return fallback;}
@@ -583,6 +592,7 @@ async function loadServerData(){
     if(remote && remote.data){
       const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
       data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},theme:localTheme};
+      data.sections=(data.sections||[]).map(sec=>({...sec,products:(sec.products||[]).map(p=>({...p,oldPrice:String(p.oldPrice??""),soldOut:Boolean(p.soldOut)}))}));
       const cacheData=structuredClone(data); delete cacheData.theme;
       localStorage.setItem("js_collections_cached_data",JSON.stringify(cacheData));
       renderSite(); applyTheme(localTheme);
@@ -726,11 +736,15 @@ function renderProducts(query=""){
   });
   if(!any) wrap.innerHTML='<div class="empty">No matching products found.</div>';
 }
+function priceMarkup(p){
+  const old=String(p.oldPrice??"").trim();
+  return old?`<div class="price"><del>${esc(data.currency)} ${esc(old)}</del> <strong>${esc(data.currency)} ${esc(p.price)}</strong></div>`:`<div class="price">${esc(data.currency)} ${esc(p.price)}</div>`;
+}
 function productCard(p){
-  const el=document.createElement("article");el.className="card";
-  el.innerHTML=`<div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" onerror="this.style.opacity=.25"></div>
-   <div class="card-body"><h4>${esc(p.name)}</h4><div class="price">${esc(data.currency)} ${esc(p.price)}</div><div class="specs">${esc(p.specs)}</div>
-   <div class="card-actions"><button class="btn outline tiny add">Add to Cart</button><button class="btn tiny buy">Buy Now</button></div></div>`;
+  const el=document.createElement("article");el.className="card"+(p.soldOut?" sold-out":"");
+  el.innerHTML=`<div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" onerror="this.style.opacity=.25">${p.soldOut?'<span class="sold-badge">Sold Out</span>':''}</div>
+   <div class="card-body"><h4>${esc(p.name)}</h4>${priceMarkup(p)}<div class="specs">${esc(p.specs)}</div>
+   <div class="card-actions"><button class="btn outline tiny add" ${p.soldOut?'disabled':''}>${p.soldOut?'Sold Out':'Add to Cart'}</button><button class="btn tiny buy" ${p.soldOut?'disabled':''}>${p.soldOut?'Unavailable':'Buy Now'}</button></div></div>`;
   el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;showProduct(p.id)});
   el.querySelector(".add").onclick=e=>{e.stopPropagation();addToCart(p.id)};
   el.querySelector(".buy").onclick=e=>{e.stopPropagation();buyNow(p.id)};
@@ -742,21 +756,26 @@ function findProduct(id){
 function showProduct(id){
   const p=findProduct(id);if(!p)return;activeProduct=p;
   document.getElementById("detail-title").textContent=p.name;
-  document.getElementById("detail-price").textContent=`${data.currency} ${p.price}`;
-  document.getElementById("detail-specs").textContent=p.specs;
+  document.getElementById("detail-price").innerHTML=priceMarkup(p);
+  document.getElementById("detail-specs").textContent=p.soldOut?`${p.specs} · Sold Out`:p.specs;
   document.getElementById("detail-img").src=p.image;
+  document.getElementById("detail-add").disabled=Boolean(p.soldOut);
+  document.getElementById("detail-buy").disabled=Boolean(p.soldOut);
+  document.getElementById("detail-add").textContent=p.soldOut?"Sold Out":"Add to Cart";
+  document.getElementById("detail-buy").textContent=p.soldOut?"Unavailable":"Buy Now";
   document.getElementById("detail-add").onclick=()=>{addToCart(id);closeModal("product-modal")};
   document.getElementById("detail-buy").onclick=()=>{closeModal("product-modal");buyNow(id)};
   openModal("product-modal");
 }
 function addToCart(id){
   const p=findProduct(id);if(!p)return;
+  if(p.soldOut){notify("This product is sold out.");return}
   const existing=cart.find(x=>x.id===id);
   if(existing)existing.qty++;else cart.push({id,qty:1});
   localStorage.setItem("js_collections_cart",JSON.stringify(cart));
   updateCartCount();notify("Added to cart.");
 }
-function buyNow(id){cart=[{id,qty:1}];localStorage.setItem("js_collections_cart",JSON.stringify(cart));updateCartCount();openOrder()}
+function buyNow(id){const p=findProduct(id);if(!p)return;if(p.soldOut){notify("This product is sold out.");return}cart=[{id,qty:1}];localStorage.setItem("js_collections_cart",JSON.stringify(cart));updateCartCount();openOrder()}
 function updateCartCount(){document.getElementById("cart-count").textContent=cart.reduce((a,x)=>a+x.qty,0)}
 function renderCart(){
   const box=document.getElementById("cart-items");box.innerHTML="";
@@ -766,7 +785,7 @@ function renderCart(){
     const p=findProduct(item.id);if(!p)return;
     total += Number(p.price||0)*item.qty;
     const row=document.createElement("div");row.className="cart-row";
-    row.innerHTML=`<img src="${esc(p.image)}"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(data.currency)} ${esc(p.price)} each</div></div>
+    row.innerHTML=`<img src="${esc(p.image)}"><div><strong>${esc(p.name)}</strong><div class="muted">${priceMarkup(p)} each</div></div>
     <div class="cart-actions"><span class="qty"><button class="btn outline tiny minus">−</button><b>${item.qty}</b><button class="btn outline tiny plus">+</button></span><button class="btn danger tiny remove">Remove</button></div>`;
     row.querySelector(".minus").onclick=()=>changeQty(item.id,-1);row.querySelector(".plus").onclick=()=>changeQty(item.id,1);row.querySelector(".remove").onclick=()=>removeCart(item.id);
     box.appendChild(row);
@@ -797,11 +816,23 @@ document.getElementById("product-filter").addEventListener("input",e=>renderProd
 document.getElementById("cart-open").addEventListener("click",openCart);
 document.querySelectorAll(".modal-wrap").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)closeModal(m.id)}));
 document.getElementById("contact-form").addEventListener("submit",e=>{e.preventDefault();const body=`Name: ${name.value}%0D%0AEmail: ${email.value}%0D%0AMessage: ${message.value}`;window.location.href=`${data.links.email}?subject=Contact Inquiry&body=${body}`});
-document.getElementById("order-form").addEventListener("submit",e=>{
- e.preventDefault();let details=`New Order Received:%0D%0A%0D%0ACustomer: ${encodeURIComponent(document.getElementById("order-name").value)}%0D%0AContact: ${encodeURIComponent(document.getElementById("order-contact").value)}%0D%0AAddress: ${encodeURIComponent(document.getElementById("order-address").value)}%0D%0A%0D%0AOrder Details:%0D%0A`;
- let total=0;cart.forEach((x,i)=>{const p=findProduct(x.id);if(!p)return;total+=Number(p.price)*x.qty;details+=`${i+1}. ${encodeURIComponent(p.name)} - ${p.price} x ${x.qty}%0D%0A`});details+=`%0D%0AOrder Total: ${data.currency} ${total}`;
- const method=document.querySelector('input[name="orderMethod"]:checked').value;const link=method==="email"?`${data.links.email}?subject=New Order Received&body=${details}`:`${data.links.whatsapp}?text=${details}`;
- cart=[];localStorage.removeItem("js_collections_cart");updateCartCount();closeModal("order-modal");window.location.href=link;
+document.getElementById("order-form").addEventListener("submit",async e=>{
+ e.preventDefault();
+ const submit=document.getElementById("submit-order-btn");
+ if(submit.disabled)return;
+ const items=cart.map(x=>{const p=findProduct(x.id);return p?{id:p.id,name:p.name,price:String(p.price),oldPrice:String(p.oldPrice||""),qty:x.qty}:null}).filter(Boolean);
+ if(!items.length){notify("Your cart is empty.");return}
+ const total=items.reduce((sum,x)=>sum+Number(x.price||0)*x.qty,0);
+ const payload={customer:{name:document.getElementById("order-name").value.trim(),contact:document.getElementById("order-contact").value.trim(),email:document.getElementById("order-email").value.trim(),address:document.getElementById("order-address").value.trim()},items,total,currency:data.currency};
+ submit.disabled=true;
+ submit.textContent="Submitting…";
+ try{
+   const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+   const result=await r.json().catch(()=>({}));
+   if(!r.ok)throw new Error(result.error||"Unable to submit order.");
+   cart=[];localStorage.removeItem("js_collections_cart");updateCartCount();closeModal("order-modal");e.target.reset();notify("Order received. Thank you.");
+ }catch(err){notify(err.message||"Unable to submit order. Please try again.");}
+ finally{submit.disabled=false;submit.textContent="Submit Order";}
 });
 
 // Admin
@@ -839,7 +870,7 @@ document.getElementById("admin-login-form").addEventListener("submit",async e=>{
  }finally{submit.disabled=false;}
 });
 
-function openAdmin(){document.getElementById("admin-panel").classList.add("show");setSaveStatus("","Ready to edit. Saves commit to the GitHub repository.");populateAdmin()}
+function openAdmin(){document.getElementById("admin-panel").classList.add("show");setSaveStatus("","Ready to edit. Saves commit to the GitHub repository.");populateAdmin();loadAdminOrders()}
 function closeAdmin(){document.getElementById("admin-panel").classList.remove("show")}
 document.querySelectorAll(".admin-tab").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".admin-tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".panel").forEach(x=>x.classList.remove("active"));btn.classList.add("active");document.getElementById(btn.dataset.panel).classList.add("active")}));
 function populateAdmin(){
@@ -883,14 +914,37 @@ function renderAdminSections(){
 }
 function adminProductRow(s,si,p,pi){
  const row=document.createElement("div");row.className="admin-product";row.style.marginTop="10px";
- row.innerHTML=`<img src="${esc(p.image)}"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(data.currency)} ${esc(p.price)} · ${esc(p.specs)}</div><div class="row" style="margin-top:7px"><input class="form-control tiny pname" style="max-width:190px" value="${esc(p.name)}"><input class="form-control tiny pprice" style="max-width:115px" value="${esc(p.price)}"><input class="form-control tiny pimage" style="max-width:210px" value="${esc(p.image)}"></div><input class="form-control tiny pspecs" style="margin-top:7px" value="${esc(p.specs)}"></div><div class="row-actions row"><button class="btn tiny savep">Save</button><button class="btn danger tiny delp">Delete</button></div>`;
- row.querySelector(".savep").onclick=()=>{p.name=row.querySelector(".pname").value;p.price=row.querySelector(".pprice").value;p.image=row.querySelector(".pimage").value;p.specs=row.querySelector(".pspecs").value;persistData("Updated product");renderSite();renderAdminSections()};
+ row.innerHTML=`<img src="${esc(p.image)}" alt="${esc(p.name)}"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(data.currency)} ${esc(p.price)} · ${esc(p.specs)}</div><div class="row" style="margin-top:7px"><input class="form-control tiny pname" style="max-width:190px" value="${esc(p.name)}"><input class="form-control tiny pprice" style="max-width:115px" inputmode="decimal" placeholder="Sale price" value="${esc(p.price)}"><input class="form-control tiny poldprice" style="max-width:115px" inputmode="decimal" placeholder="Original price" value="${esc(p.oldPrice||"")}"><input class="form-control tiny pimage" style="max-width:210px" value="${esc(p.image)}"></div><input class="form-control tiny pspecs" style="margin-top:7px" value="${esc(p.specs)}"></div><div class="row-actions row"><button class="btn outline tiny up-p" ${pi===0?'disabled':''}>↑</button><button class="btn outline tiny down-p" ${pi===s.products.length-1?'disabled':''}>↓</button><label class="product-switch"><input type="checkbox" class="psold" ${p.soldOut?'checked':''}><span>Sold out</span></label><button class="btn tiny savep">Save</button><button class="btn danger tiny delp">Delete</button></div>`;
+ row.querySelector(".up-p").onclick=()=>moveProduct(si,pi,-1);
+ row.querySelector(".down-p").onclick=()=>moveProduct(si,pi,1);
+ row.querySelector(".savep").onclick=()=>{p.name=row.querySelector(".pname").value.trim()||"Untitled Product";p.price=row.querySelector(".pprice").value.trim()||"0";p.oldPrice=row.querySelector(".poldprice").value.trim();p.image=row.querySelector(".pimage").value.trim();p.specs=row.querySelector(".pspecs").value.trim();p.soldOut=row.querySelector(".psold").checked;persistData("Updated product");renderSite();renderAdminSections()};
  row.querySelector(".delp").onclick=()=>{if(confirm(`Delete "${p.name}"?`)){s.products.splice(pi,1);persistData("Updated store structure");renderSite();renderAdminSections()}};
  return row;
 }
+
 function addSection(){data.sections.push({id:"section_"+Date.now(),name:"New Section",products:[]});persistData("Updated store structure");renderSite();renderAdminSections()}
-function addProduct(si){data.sections[si].products.push({id:"p_"+Date.now(),name:"New Product",price:"0",specs:"Add product details",image:"product.jpg"});persistData("Updated store structure");renderSite();renderAdminSections()}
+function addProduct(si){data.sections[si].products.push({id:"p_"+Date.now(),name:"New Product",price:"0",oldPrice:"",soldOut:false,specs:"Add product details",image:"product.jpg"});persistData("Updated store structure");renderSite();renderAdminSections()}
 function moveSection(i,d){const j=i+d;if(j<0||j>=data.sections.length)return;[data.sections[i],data.sections[j]]=[data.sections[j],data.sections[i]];persistData("Updated store structure");renderSite();renderAdminSections()}
+function moveProduct(si,pi,d){const products=data.sections[si].products;const target=pi+d;if(target<0||target>=products.length)return;[products[pi],products[target]]=[products[target],products[pi]];persistData("Reordered products");renderSite();renderAdminSections()}
+
+function formatOrderDate(value){try{return new Date(value).toLocaleString(undefined,{dateStyle:"medium",timeStyle:"short"})}catch{return value||""}}
+async function loadAdminOrders(){
+ const box=document.getElementById("admin-orders");if(!box)return;
+ box.innerHTML='<div class="empty">Loading orders…</div>';
+ try{
+  const r=await fetch("/api/orders",{headers:{"Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},cache:"no-store"});
+  const result=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(result.error||"Unable to load orders.");
+  const orders=Array.isArray(result.orders)?result.orders:[];
+  if(!orders.length){box.innerHTML='<div class="empty">No orders received yet.</div>';return}
+  box.innerHTML=orders.map((o,i)=>{
+   const c=o.customer||{};
+   const items=(o.items||[]).map(x=>`<li>${esc(x.name)} × ${esc(x.qty)} — ${esc(o.currency||data.currency)} ${Number(x.price||0).toLocaleString()}</li>`).join("");
+   return `<article class="order-item"><div class="order-head"><div><strong>Order #${esc(o.id||String(i+1))}</strong><div class="muted">${esc(formatOrderDate(o.createdAt))}</div></div><strong>${esc(o.currency||data.currency)} ${Number(o.total||0).toLocaleString()}</strong></div><div class="order-grid"><div><b>Customer</b><div>${esc(c.name||"")}</div><div>${esc(c.contact||"")}</div>${c.email?`<div>${esc(c.email)}</div>`:""}</div><div><b>Address</b><div>${esc(c.address||"")}</div></div><div><b>Items</b><ul>${items}</ul></div></div></article>`;
+  }).join("");
+ }catch(err){box.innerHTML=`<div class="notice">${esc(err.message||"Unable to load orders.")}</div>`}
+}
+
 async function resetSite(){
  if(!confirm("Reset all JS Collections customizations to the default template?"))return;
  data=structuredClone(DEFAULT_DATA);
