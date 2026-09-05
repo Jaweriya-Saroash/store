@@ -45,6 +45,20 @@
           "price": "3250",
           "specs": "Rich texture · Double bed",
           "image": "4.jpg"
+        },
+        {
+          "id": "p_1788617522682",
+          "name": "New Product",
+          "price": "0",
+          "specs": "Add product details",
+          "image": "product.jpg"
+        },
+        {
+          "id": "p_1788617523041",
+          "name": "New Product",
+          "price": "0",
+          "specs": "Add product details",
+          "image": "product.jpg"
         }
       ]
     },
