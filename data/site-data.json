@@ -23,7 +23,7 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "1.jpg",
           "oldPrice": "",
-          "soldOut": true
+          "soldOut": false
         },
         {
           "id": "b2",
