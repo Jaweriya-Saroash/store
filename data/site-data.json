@@ -59,13 +59,22 @@
           "price": "0",
           "specs": "Add product details",
           "image": "product.jpg"
+        },
+        {
+          "id": "p_1788617523398",
+          "name": "New Product",
+          "price": "0",
+          "specs": "Add product details",
+          "image": "product.jpg"
+        },
+        {
+          "id": "p_1788617523712",
+          "name": "New Product",
+          "price": "0",
+          "specs": "Add product details",
+          "image": "product.jpg"
         }
       ]
-    },
-    {
-      "id": "section_1788617520848",
-      "name": "New Section",
-      "products": []
     }
   ]
 }
