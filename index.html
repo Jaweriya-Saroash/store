@@ -152,7 +152,18 @@ button,input,textarea,select{font:inherit}
   border:1px solid rgba(255,255,255,.13);box-shadow:var(--shadow);background:#091523;
 }
 .hero-card img{width:100%;height:100%;min-height:500px;object-fit:cover;opacity:.84}
-.hero-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 36%,rgba(5,10,17,.85))}
+.hero-slides{position:absolute;inset:0}
+.hero-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transform:scale(1.035);transition:opacity .65s ease,transform 1.1s ease,visibility .65s}
+.hero-slide.active{opacity:1;visibility:visible;transform:scale(1)}
+.hero-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,17,.02) 28%,rgba(5,10,17,.84) 100%);pointer-events:none}
+.hero-control{position:absolute;top:50%;z-index:3;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.20);background:rgba(8,15,25,.42);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(12px);transition:transform .22s ease,background .22s ease,border-color .22s ease}
+.hero-control:hover{transform:translateY(-50%) scale(1.06);background:rgba(8,15,25,.66);border-color:rgba(255,255,255,.34)}
+.hero-prev{left:16px}.hero-next{right:16px}
+.hero-dots{position:absolute;right:25px;bottom:25px;z-index:3;display:flex;gap:7px;align-items:center}
+.hero-dot{width:7px;height:7px;border:0;border-radius:50%;padding:0;background:rgba(255,255,255,.42);cursor:pointer;transition:width .25s ease,background .25s ease}
+.hero-dot.active{width:22px;border-radius:99px;background:#fff}
+.hero-card.is-paused .hero-slides:after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:rgba(255,255,255,.18)}
 .hero-badge{
   position:absolute;left:25px;bottom:24px;right:25px;padding:17px 18px;border-radius:19px;
   background:rgba(9,18,30,.6);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);z-index:1;
@@ -292,6 +303,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
  .nav{padding:7px 9px}.brand strong{font-size:1.05rem}.logo{width:43px;height:43px}
  .hero{padding-top:33px;min-height:auto}.hero h1{font-size:3.25rem}.hero p{font-size:1rem}
  .hero-card,.hero-card img{min-height:320px}.hero-actions .btn{width:100%}
+  .hero-control{width:38px;height:38px}.hero-dots{right:18px;bottom:18px}.hero-badge{left:18px;right:18px;bottom:18px;padding:14px}
  .section{padding:57px 0}.section-head{align-items:stretch;flex-direction:column}
  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
  .card{border-radius:16px}.card-body{padding:11px}.specs{font-size:.77rem}.card-actions{flex-direction:column}.card-actions button{width:100%}
@@ -335,9 +347,15 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
    <p id="hero-motto">Using every aspect—from fabric to accessories—our collections celebrate individuality and empower women.</p>
    <div class="hero-actions"><a class="btn" href="#products">Explore Collection</a><a class="btn outline" href="#contact">Contact Us</a></div>
   </div>
-  <div class="hero-card">
-   <img id="hero-image" src="hsi.png" alt="JS Collections">
-   <div class="hero-badge"><strong>Luxury for every corner of your style.</strong><small>Bedsheets first. Fabrics and more, carefully selected.</small></div>
+  <div class="hero-card" id="hero-carousel" aria-label="Featured products carousel">
+   <div class="hero-slides" id="hero-slides"></div>
+   <button class="hero-control hero-prev" id="hero-prev" type="button" aria-label="Previous product"><i class="fa-solid fa-chevron-left"></i></button>
+   <button class="hero-control hero-next" id="hero-next" type="button" aria-label="Next product"><i class="fa-solid fa-chevron-right"></i></button>
+   <div class="hero-dots" id="hero-dots" aria-label="Choose featured product"></div>
+   <div class="hero-badge">
+    <strong id="hero-feature-title">Luxury for every corner of your style.</strong>
+    <small id="hero-feature-subtitle">Featured product from the current collection.</small>
+   </div>
   </div>
  </div>
 </section>
@@ -516,6 +534,10 @@ const STORAGE_KEY="js_collections_site_v1";
 let data = loadData();
 let cart = JSON.parse(localStorage.getItem("js_collections_cart")||"[]");
 let activeProduct=null;
+let heroSlides=[];
+let heroIndex=0;
+let heroTimer=null;
+let heroPaused=false;
 
 function loadData(){
   const saved=localStorage.getItem("js_collections_cached_data");
@@ -596,11 +618,67 @@ function renderSite(){
   document.getElementById("about-text").textContent=data.about;
   document.getElementById("nav-logo").src=data.logo;
   document.getElementById("about-logo").src=data.logo;
-  document.getElementById("hero-image").src=data.heroImage;
+  setupHeroCarousel();
   document.getElementById("year").textContent=new Date().getFullYear();
   renderProducts();
   renderContact();
   updateCartCount();
+}
+function getHeroProducts(){
+  return data.sections.flatMap(section=>section.products.map(p=>({...p,sectionName:section.name})));
+}
+function setupHeroCarousel(){
+  const wrap=document.getElementById("hero-slides"),dots=document.getElementById("hero-dots");
+  if(!wrap||!dots)return;
+  const products=getHeroProducts();
+  heroSlides=products;
+  heroIndex=Math.min(heroIndex,Math.max(products.length-1,0));
+  clearInterval(heroTimer);
+  wrap.innerHTML="";dots.innerHTML="";
+  if(!products.length){
+    wrap.innerHTML='<div class="hero-slide active"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1a2b,#131f31)"></div></div>';
+    document.getElementById("hero-feature-title").textContent="JS Collections";
+    document.getElementById("hero-feature-subtitle").textContent="Add products to feature them here.";
+    return;
+  }
+  products.forEach((p,i)=>{
+    const slide=document.createElement("div");slide.className="hero-slide"+(i===heroIndex?" active":"");
+    slide.innerHTML=`<img src="${esc(p.image)}" alt="${esc(p.name)}" loading="${i===0?'eager':'lazy'}" onerror="this.style.opacity=.25">`;
+    wrap.appendChild(slide);
+    const dot=document.createElement("button");dot.type="button";dot.className="hero-dot"+(i===heroIndex?" active":"");dot.setAttribute("aria-label",`Show ${p.name}`);dot.onclick=()=>{showHeroSlide(i,true)};dots.appendChild(dot);
+  });
+  updateHeroContent();
+  startHeroCarousel();
+}
+function updateHeroContent(){
+  const p=heroSlides[heroIndex];
+  if(!p)return;
+  const title=document.getElementById("hero-feature-title"),sub=document.getElementById("hero-feature-subtitle");
+  if(title)title.textContent=p.name;
+  if(sub)sub.textContent=`${p.sectionName} · ${data.currency} ${p.price}`;
+}
+function showHeroSlide(index,manual=false){
+  if(!heroSlides.length)return;
+  heroIndex=(index+heroSlides.length)%heroSlides.length;
+  document.querySelectorAll(".hero-slide").forEach((el,i)=>el.classList.toggle("active",i===heroIndex));
+  document.querySelectorAll(".hero-dot").forEach((el,i)=>el.classList.toggle("active",i===heroIndex));
+  updateHeroContent();
+  if(manual)startHeroCarousel();
+}
+function startHeroCarousel(){
+  clearInterval(heroTimer);
+  if(heroSlides.length<2)return;
+  heroTimer=setInterval(()=>{if(!heroPaused)showHeroSlide(heroIndex+1)},5000);
+}
+function wireHeroCarousel(){
+  const card=document.getElementById("hero-carousel");
+  if(!card)return;
+  card.addEventListener("mouseenter",()=>{heroPaused=true;card.classList.add("is-paused")});
+  card.addEventListener("mouseleave",()=>{heroPaused=false;card.classList.remove("is-paused")});
+  document.getElementById("hero-prev")?.addEventListener("click",()=>showHeroSlide(heroIndex-1,true));
+  document.getElementById("hero-next")?.addEventListener("click",()=>showHeroSlide(heroIndex+1,true));
+  card.addEventListener("touchstart",()=>{heroPaused=true},{passive:true});
+  card.addEventListener("touchend",()=>{heroPaused=false},{passive:true});
 }
 function renderProducts(query=""){
   const wrap=document.getElementById("product-container"), q=query.trim().toLowerCase();
@@ -794,6 +872,7 @@ function applyTheme(theme){
  localStorage.setItem("js_collections_theme",theme);
 }
 function toggleTheme(){const next=document.body.classList.contains("light-theme")?"dark":"light";data.theme=next;applyTheme(next);persistData("Changed website theme");}
+wireHeroCarousel();
 renderSite();
 applyTheme(data.theme||localStorage.getItem("js_collections_theme")||"dark");
 loadServerData();
