@@ -18,12 +18,14 @@
       "products": [
         {
           "id": "b1",
-          "name": "Untitled Product",
+          "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "1.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "b2",
@@ -32,7 +34,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "2.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "b3",
@@ -41,7 +45,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "3.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "b4",
@@ -50,7 +56,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "4.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "p_1788617522682",
@@ -59,7 +67,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "5.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "p_1788617523041",
@@ -68,7 +78,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "6.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "p_1788617523398",
@@ -77,7 +89,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "7.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         },
         {
           "id": "p_1788617523712",
@@ -86,7 +100,9 @@
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "8.jpg",
           "oldPrice": "",
-          "soldOut": false
+          "soldOut": false,
+          "usdPrice": "",
+          "oldUsdPrice": ""
         }
       ]
     }
