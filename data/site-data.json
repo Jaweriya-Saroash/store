@@ -47,6 +47,11 @@
           "image": "4.jpg"
         }
       ]
+    },
+    {
+      "id": "section_1788617520848",
+      "name": "New Section",
+      "products": []
     }
   ]
 }
