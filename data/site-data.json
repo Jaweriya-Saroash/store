@@ -4,11 +4,9 @@
   "motto": "Using every aspect—from fabric to accessories—our collections celebrate individuality and empower women.",
   "about": "At JS Collections, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation—each piece is carefully crafted to celebrate individuality and inspire confidence.",
   "logo": "logo.jpg",
-  "heroImage": "",
   "currency": "PKR",
-  "theme": "light",
   "links": {
-    "instagram": "https://instagram.com/jaweriyas_official",
+    "instagram": "https://instagram.com/js",
     "whatsapp": "https://wa.me/923400434334",
     "email": "mailto:jsofficialcollections@gmail.com",
     "display": "Instagram · WhatsApp · Email"
@@ -23,58 +21,75 @@
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "1.jpg"
+          "image": "1.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "b2",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "2.jpg"
+          "image": "2.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "b3",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "3.jpg"
+          "image": "3.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "b4",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "4.jpg"
+          "image": "4.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "p_1788617522682",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "5.jpg"
+          "image": "5.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "p_1788617523041",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "6.jpg"
+          "image": "6.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "p_1788617523398",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "7.jpg"
+          "image": "7.jpg",
+          "oldPrice": "",
+          "soldOut": false
         },
         {
           "id": "p_1788617523712",
           "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
-          "image": "8.jpg"
+          "image": "8.jpg",
+          "oldPrice": "",
+          "soldOut": false
         }
       ]
     }
-  ]
+  ],
+  "heroImage": ""
 }
