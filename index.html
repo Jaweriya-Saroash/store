@@ -210,9 +210,9 @@ textarea.form-control{resize:vertical}
 label{display:block;margin:0 0 6px;color:#cdd5df;font-size:.9rem}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .field{margin-bottom:14px}
-footer{padding:24px 0 36px;border-top:1px solid rgba(255,255,255,.08);margin-top:30px}
+footer{padding:16px 0 22px;border-top:1px solid rgba(255,255,255,.08);margin-top:18px}
 .footer-inner{display:flex;gap:18px;justify-content:space-between;align-items:center}
-.socials{display:flex;gap:8px}.socials a{width:40px;height:40px;display:grid;place-items:center;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
+.socials{display:flex;gap:7px}.socials a{width:36px;height:36px;display:grid;place-items:center;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
 .muted{color:#8f9cac;font-size:.88rem}
 
 .modal-wrap{position:fixed;inset:0;z-index:3000;display:none;padding:18px;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);overflow:auto}
@@ -302,13 +302,13 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
  .container{width:min(100% - 20px,1180px)}
  .nav{padding:7px 9px}.brand strong{font-size:1.05rem}.logo{width:43px;height:43px}
  .hero{padding-top:33px;min-height:auto}.hero h1{font-size:3.25rem}.hero p{font-size:1rem}
- .hero-card,.hero-card img{min-height:320px}.hero-actions .btn{width:100%}
+ .hero-card{min-height:420px;height:420px}.hero-card .hero-slides{height:100%}.hero-slide img{object-fit:contain;background:linear-gradient(180deg,rgba(9,21,35,.92),rgba(6,14,24,.98));}.hero-actions .btn{width:100%}
   .hero-control{width:38px;height:38px}.hero-dots{right:18px;bottom:18px}.hero-badge{left:18px;right:18px;bottom:18px;padding:14px}
  .section{padding:57px 0}.section-head{align-items:stretch;flex-direction:column}
  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
  .card{border-radius:16px}.card-body{padding:11px}.specs{font-size:.77rem}.card-actions{flex-direction:column}.card-actions button{width:100%}
  .about-grid,.contact-grid{grid-template-columns:1fr}.about-copy,.contact-card,.contact-info{padding:22px}
- .form-row,.admin-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center}
+ .form-row,.admin-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center;gap:10px}.socials{gap:6px}.socials a{width:34px;height:34px} footer{padding:12px 0 16px;margin-top:10px}
  .admin-product{grid-template-columns:56px 1fr}.admin-product .row-actions{grid-column:2}
 }
 </style>
@@ -353,8 +353,8 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
    <button class="hero-control hero-next" id="hero-next" type="button" aria-label="Next product"><i class="fa-solid fa-chevron-right"></i></button>
    <div class="hero-dots" id="hero-dots" aria-label="Choose featured product"></div>
    <div class="hero-badge">
-    <strong id="hero-feature-title">Luxury for every corner of your style.</strong>
-    <small id="hero-feature-subtitle">Featured product from the current collection.</small>
+    <strong>Luxury for every corner of your style.</strong>
+    <small>Bedsheets first. Fabrics and more, carefully selected</small>
    </div>
   </div>
  </div>
@@ -470,7 +470,6 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
        <div class="field"><label>Hero motto</label><textarea class="form-control" data-setting="motto" rows="4"></textarea></div>
        <div class="field"><label>About text</label><textarea class="form-control" data-setting="about" rows="4"></textarea></div>
        <div class="field"><label>Logo image filename / URL</label><input class="form-control" data-setting="logo"></div>
-       <div class="field"><label>Hero image filename / URL</label><input class="form-control" data-setting="heroImage"></div>
       </div>
       <button class="btn" onclick="saveSettings()">Save Brand & Content</button>
     </div>
@@ -490,7 +489,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
     <div id="settings-panel" class="panel">
       <div class="admin-grid">
        <div class="field"><label>Currency label</label><input class="form-control" data-setting="currency"></div>
-       <div class="field"><label>Default theme</label><select class="form-control" data-setting="theme"><option value="dark">Dark / Navy</option><option value="light">Light</option></select></div>
+       <div class="field"><label>Local theme preference</label><select class="form-control" data-setting="theme"><option value="light">Light</option><option value="dark">Dark / Navy</option></select></div>
       </div>
       <div class="notice">Your admin password and GitHub token stay server-side. The repository is selected by the <code>GITHUB_REPO_URL</code> environment variable, so the browser never receives the token.</div>
       <div class="row"><button class="btn" onclick="saveGeneralSettings()">Save Settings</button><button class="btn danger" onclick="resetSite()">Reset site data</button></div>
@@ -507,9 +506,8 @@ const DEFAULT_DATA = {
   motto:"Using every aspect\u2014from fabric to accessories\u2014our collections celebrate individuality and empower women.",
   about:"At Jaweriya Saroash, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation\u2014each piece is carefully crafted to celebrate individuality and inspire confidence.",
   logo:"logo.jpg",
-  heroImage:"hsi.png",
   currency:"PKR",
-  theme:"dark",
+  theme:"light",
   links:{
     instagram:"https://instagram.com/jaweriyas_official",
     whatsapp:"https://wa.me/923400434334",
@@ -531,7 +529,9 @@ const DEFAULT_DATA = {
 };
 
 const STORAGE_KEY="js_collections_site_v1";
+const THEME_STORAGE_KEY="js_collections_theme";
 let data = loadData();
+data.theme = localStorage.getItem(THEME_STORAGE_KEY) || "light";
 let cart = JSON.parse(localStorage.getItem("js_collections_cart")||"[]");
 let activeProduct=null;
 let heroSlides=[];
@@ -541,11 +541,14 @@ let heroPaused=false;
 
 function loadData(){
   const saved=localStorage.getItem("js_collections_cached_data");
-  if(!saved) return structuredClone(DEFAULT_DATA);
+  const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
+  if(!saved){const fresh=structuredClone(DEFAULT_DATA);fresh.theme=localTheme;return fresh;}
   try{
     const parsed=JSON.parse(saved);
-    return {...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links}};
-  }catch(e){return structuredClone(DEFAULT_DATA);}
+    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links}};
+    merged.theme=localTheme;
+    return merged;
+  }catch(e){const fallback=structuredClone(DEFAULT_DATA);fallback.theme=localTheme;return fallback;}
 }
 async function loadServerData(){
   try{
@@ -556,9 +559,11 @@ async function loadServerData(){
       return false;
     }
     if(remote && remote.data){
-      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links}};
-      localStorage.setItem("js_collections_cached_data",JSON.stringify(data));
-      renderSite(); applyTheme(data.theme||"dark");
+      const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
+      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},theme:localTheme};
+      const cacheData=structuredClone(data); delete cacheData.theme;
+      localStorage.setItem("js_collections_cached_data",JSON.stringify(cacheData));
+      renderSite(); applyTheme(localTheme);
       return true;
     }
   }catch(e){
@@ -575,8 +580,10 @@ function setSaveStatus(state,text){
   indicator.innerHTML=state==="saving"?'<i class="fa-solid fa-spinner fa-spin"></i> Saving':state==="saved"?'<i class="fa-solid fa-circle-check"></i> Saved':state==="error"?'<i class="fa-solid fa-circle-exclamation"></i> Needs attention':'<i class="fa-solid fa-cloud"></i> Ready';
   label.textContent=text;
 }
-async function persistData(message="Update JS Collections"){
-  localStorage.setItem("js_collections_cached_data",JSON.stringify(data));
+async function persistData(message="Update JS Collections",options={}){
+ const silent=Boolean(options.silent);
+  const publishData=structuredClone(data); delete publishData.theme;
+  localStorage.setItem("js_collections_cached_data",JSON.stringify(publishData));
   if(saveInFlight)return saveInFlight;
   saveInFlight=(async()=>{
     setSaveStatus("saving","Saving the latest changes to GitHub…");
@@ -584,7 +591,7 @@ async function persistData(message="Update JS Collections"){
       const r=await fetch("/api/save",{
         method:"POST",
         headers:{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},
-        body:JSON.stringify({data,message})
+        body:JSON.stringify({data:publishData,message})
       });
       const result=await r.json().catch(()=>({}));
       if(!r.ok){
@@ -592,11 +599,11 @@ async function persistData(message="Update JS Collections"){
         throw new Error(result.error||`GitHub save failed (${r.status}).`);
       }
       setSaveStatus("saved",`Saved to GitHub${result.commit?` · ${result.commit}`:""}. Vercel will redeploy from the repository.`);
-      notify("Saved to GitHub. Vercel will update from the commit.");
+      if(!silent)notify("Saved to GitHub. Vercel will update from the commit.");
       return true;
     }catch(e){
       setSaveStatus("error",e.message||"GitHub save failed. Check your server settings.");
-      notify(e.message||"GitHub save failed.");
+      if(!silent)notify(e.message||"GitHub save failed.");
       console.error("JS Collections save error:",e);
       return false;
     }finally{saveInFlight=null;}
@@ -637,8 +644,7 @@ function setupHeroCarousel(){
   wrap.innerHTML="";dots.innerHTML="";
   if(!products.length){
     wrap.innerHTML='<div class="hero-slide active"><div style="width:100%;height:100%;background:linear-gradient(135deg,#0d1a2b,#131f31)"></div></div>';
-    document.getElementById("hero-feature-title").textContent="JS Collections";
-    document.getElementById("hero-feature-subtitle").textContent="Add products to feature them here.";
+
     return;
   }
   products.forEach((p,i)=>{
@@ -647,22 +653,14 @@ function setupHeroCarousel(){
     wrap.appendChild(slide);
     const dot=document.createElement("button");dot.type="button";dot.className="hero-dot"+(i===heroIndex?" active":"");dot.setAttribute("aria-label",`Show ${p.name}`);dot.onclick=()=>{showHeroSlide(i,true)};dots.appendChild(dot);
   });
-  updateHeroContent();
   startHeroCarousel();
 }
-function updateHeroContent(){
-  const p=heroSlides[heroIndex];
-  if(!p)return;
-  const title=document.getElementById("hero-feature-title"),sub=document.getElementById("hero-feature-subtitle");
-  if(title)title.textContent=p.name;
-  if(sub)sub.textContent=`${p.sectionName} · ${data.currency} ${p.price}`;
-}
+
 function showHeroSlide(index,manual=false){
   if(!heroSlides.length)return;
   heroIndex=(index+heroSlides.length)%heroSlides.length;
   document.querySelectorAll(".hero-slide").forEach((el,i)=>el.classList.toggle("active",i===heroIndex));
   document.querySelectorAll(".hero-dot").forEach((el,i)=>el.classList.toggle("active",i===heroIndex));
-  updateHeroContent();
   if(manual)startHeroCarousel();
 }
 function startHeroCarousel(){
@@ -828,8 +826,11 @@ async function saveLinks(){
  return persistData("Updated social and contact links");
 }
 async function saveGeneralSettings(){
- document.querySelectorAll("[data-setting]").forEach(el=>data[el.dataset.setting]=el.value);
- applyTheme(data.theme||"dark");
+ const themeInput=document.querySelector('[data-setting="theme"]');
+ const nextTheme=themeInput?.value||"light";
+ document.querySelectorAll('[data-setting]:not([data-setting="theme"])').forEach(el=>data[el.dataset.setting]=el.value);
+ data.theme=nextTheme;
+ applyTheme(nextTheme);
  return persistData("Updated site settings");
 }
 function renderAdminSections(){
@@ -860,6 +861,7 @@ function moveSection(i,d){const j=i+d;if(j<0||j>=data.sections.length)return;[da
 async function resetSite(){
  if(!confirm("Reset all JS Collections customizations to the default template?"))return;
  data=structuredClone(DEFAULT_DATA);
+ data.theme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
  renderSite();
  const ok=await persistData("Reset site to default template");
  if(ok){localStorage.removeItem(STORAGE_KEY);localStorage.setItem("js_collections_cached_data",JSON.stringify(data));location.reload()}
@@ -869,12 +871,12 @@ function applyTheme(theme){
  document.body.classList.toggle("light-theme",theme==="light");
  const b=document.getElementById("theme-toggle");
  if(b)b.innerHTML=theme==="light"?'<i class="fa-solid fa-moon"></i>':'<i class="fa-solid fa-sun"></i>';
- localStorage.setItem("js_collections_theme",theme);
+ localStorage.setItem(THEME_STORAGE_KEY,theme);
 }
-function toggleTheme(){const next=document.body.classList.contains("light-theme")?"dark":"light";data.theme=next;applyTheme(next);persistData("Changed website theme");}
+function toggleTheme(){const next=document.body.classList.contains("light-theme")?"dark":"light";data.theme=next;applyTheme(next);}
 wireHeroCarousel();
 renderSite();
-applyTheme(data.theme||localStorage.getItem("js_collections_theme")||"dark");
+applyTheme(localStorage.getItem(THEME_STORAGE_KEY)||"light");
 loadServerData();
 </script>
 </body>
