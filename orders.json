@@ -1,0 +1,37 @@
+[
+  {
+    "id": "75F378DDC2745B19C918A976",
+    "createdAt": "2026-09-05T20:29:07.869Z",
+    "orderNumber": "001",
+    "pin": "7088",
+    "customer": {
+      "name": "Saaid Saroash",
+      "contact": "03312497159",
+      "email": "hydramusic2009@gmail.com",
+      "address": "abc def ghi"
+    },
+    "status": "Order received",
+    "statusHistory": [
+      {
+        "status": "Order received",
+        "at": "2026-09-05T20:29:07.869Z"
+      }
+    ],
+    "comments": [],
+    "items": [
+      {
+        "id": "b1",
+        "name": "Untitled Product",
+        "price": "2500",
+        "usdPrice": "",
+        "oldPrice": "",
+        "oldUsdPrice": "",
+        "qty": 1
+      }
+    ],
+    "total": 2500,
+    "usdTotal": 0,
+    "currency": "PKR",
+    "customerId": "9bf98f687fde9b86"
+  }
+]
