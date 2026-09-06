@@ -111,40 +111,5 @@
     "usdTotal": 0,
     "currency": "PKR",
     "customerId": "18508f677943bbca"
-  },
-  {
-    "id": "6B85A1175A2655C43CC159B9",
-    "createdAt": "2026-09-06T08:31:52.527Z",
-    "orderNumber": "005",
-    "pin": "5969",
-    "customer": {
-      "name": "Jaweriya Saroash",
-      "contact": "03239834815",
-      "email": "",
-      "address": "abc def ghi"
-    },
-    "status": "Order received",
-    "statusHistory": [
-      {
-        "status": "Order received",
-        "at": "2026-09-06T08:31:52.529Z"
-      }
-    ],
-    "comments": [],
-    "items": [
-      {
-        "id": "b2",
-        "name": "9.02",
-        "price": "2500",
-        "usdPrice": "",
-        "oldPrice": "",
-        "oldUsdPrice": "",
-        "qty": 1
-      }
-    ],
-    "total": 2500,
-    "usdTotal": 0,
-    "currency": "PKR",
-    "customerId": "18508f677943bbca"
   }
 ]
