@@ -22,10 +22,11 @@
     "email": "",
     "address": "abc def ghi",
     "createdAt": "2026-09-06T08:30:48.130Z",
-    "lastOrderAt": "2026-09-06T08:31:52.527Z",
+    "lastOrderAt": "2026-09-06T08:33:05.094Z",
     "orderNumbers": [
       "004",
-      "005"
+      "005",
+      "006"
     ]
   }
 ]
