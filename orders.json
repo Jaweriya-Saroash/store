@@ -80,11 +80,15 @@
       "email": "hydramusic2009@gmail.com",
       "address": "abc def ghi"
     },
-    "status": "Order received",
+    "status": "Pending payment",
     "statusHistory": [
       {
         "status": "Order received",
         "at": "2026-09-06T08:23:55.241Z"
+      },
+      {
+        "status": "Pending payment",
+        "at": "2026-09-06T08:25:07.340Z"
       }
     ],
     "comments": [],
