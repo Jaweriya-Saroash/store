@@ -18,13 +18,13 @@
       "products": [
         {
           "id": "b1",
-          "name": "Untitled Product",
+          "name": "",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "1.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "",
+          "usdPrice": "9.02",
           "oldUsdPrice": ""
         },
         {
