@@ -564,6 +564,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
     <div id="settings-panel" class="panel">
       <div class="admin-grid">
        <div class="field"><label>Local theme preference</label><select class="form-control" data-setting="theme"><option value="light">Light</option><option value="dark">Dark / Navy</option></select></div>
+       <div class="field"><label>Website price display</label><select class="form-control" data-setting="priceDisplay"><option value="both">PKR + USD</option><option value="pkr">PKR only</option><option value="usd">USD only</option></select></div>
       </div>
       <div class="field"><label>Delivery charges</label><div class="admin-grid">
        <div class="field"><label>Karachi, Pakistan — PKR</label><input class="form-control" data-delivery="karachi.pkr" inputmode="decimal" placeholder="e.g. 250"></div>
@@ -589,6 +590,7 @@ const DEFAULT_DATA = {
   about:"At Jaweriya Saroash, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation\u2014each piece is carefully crafted to celebrate individuality and inspire confidence.",
   logo:"logo.jpg",
   currency:"PKR",
+  priceDisplay:"both",
   deliveryCharges:{karachi:{pkr:"",usd:""},pakistanOther:{pkr:"",usd:""},international:{pkr:"",usd:""}},
   theme:"light",
   links:{
@@ -792,9 +794,18 @@ function renderProducts(query=""){
   if(!any) wrap.innerHTML='<div class="empty">No matching products found.</div>';
 }
 function priceMarkup(p){
-  const old=String(p.oldPrice??"").trim();
-  return old?`<div class="price"><del>${esc(data.currency)} ${esc(old)}</del> <strong>${esc(data.currency)} ${esc(p.price)}</strong></div>`:`<div class="price">${esc(data.currency)} ${esc(p.price)}</div>`;
+  const mode=data.priceDisplay||"both";
+  const pkr=`${esc(data.currency)} ${esc(p.price||"")}`;
+  const usd=p.usdPrice!==undefined&&String(p.usdPrice).trim()!==""?`USD $${esc(p.usdPrice)}`:"";
+  const oldPkr=String(p.oldPrice??"").trim();
+  const oldUsd=String(p.oldUsdPrice??"").trim();
+  const pkrHtml=`${oldPkr?`<del>${pkrFrom(oldPkr)}</del> `:""}<strong>${pkr}</strong>`;
+  const usdHtml=usd?`${oldUsd?`<del>USD $${esc(oldUsd)}</del> `:""}<strong>${usd}</strong>`:"";
+  if(mode==="pkr") return `<div class="price">${pkrHtml}</div>`;
+  if(mode==="usd") return `<div class="price">${usdHtml||"USD —"}</div>`;
+  return `<div class="price">${pkrHtml}${usdHtml?` <span class="price-separator">·</span> ${usdHtml}`:""}</div>`;
 }
+function pkrFrom(v){return `${esc(data.currency)} ${esc(v)}`;}
 function productCard(p){
   const el=document.createElement("article");el.className="card"+(p.soldOut?" sold-out":"");
   el.innerHTML=`<div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" onerror="this.style.opacity=.25">${p.soldOut?'<span class="sold-badge">Sold Out</span>':''}</div>
@@ -832,9 +843,15 @@ function addToCart(id){
 }
 function buyNow(id){const p=findProduct(id);if(!p)return;if(p.soldOut){notify("This product is sold out.");return}cart=[{id,qty:1}];localStorage.setItem("js_collections_cart",JSON.stringify(cart));updateCartCount();openOrder()}
 function updateCartCount(){document.getElementById("cart-count").textContent=cart.reduce((a,x)=>a+x.qty,0)}
+function totalMarkup(pkr,usd){
+  const mode=data.priceDisplay||"both";
+  if(mode==="pkr") return `Total: ${esc(data.currency)} ${Number(pkr||0).toLocaleString()}`;
+  if(mode==="usd") return `Total: USD $${Number(usd||0).toLocaleString()}`;
+  return `Total: ${esc(data.currency)} ${Number(pkr||0).toLocaleString()} <span class="price-separator">·</span> USD $${Number(usd||0).toLocaleString()}`;
+}
 function renderCart(){
   const box=document.getElementById("cart-items");box.innerHTML="";
-  if(!cart.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';document.getElementById("cart-total").textContent="Total: PKR 0";return}
+  if(!cart.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';document.getElementById("cart-total").textContent="Total: 0";return}
   let total=0;
   cart.forEach(item=>{
     const p=findProduct(item.id);if(!p)return;
@@ -845,7 +862,7 @@ function renderCart(){
     row.querySelector(".minus").onclick=()=>changeQty(item.id,-1);row.querySelector(".plus").onclick=()=>changeQty(item.id,1);row.querySelector(".remove").onclick=()=>removeCart(item.id);
     box.appendChild(row);
   });
-  document.getElementById("cart-total").textContent=`Total: ${data.currency} ${total.toLocaleString()}`;
+  document.getElementById("cart-total").innerHTML=totalMarkup(total,cart.reduce((s,x)=>s+Number(findProduct(x.id)?.usdPrice||0)*x.qty,0));
 }
 function changeQty(id,d){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);localStorage.setItem("js_collections_cart",JSON.stringify(cart));renderCart();updateCartCount()}
 function removeCart(id){cart=cart.filter(i=>i.id!==id);localStorage.setItem("js_collections_cart",JSON.stringify(cart));renderCart();updateCartCount()}
@@ -987,7 +1004,7 @@ function currentOrderLocation(){const country=document.getElementById("order-cou
 function formatDeliveryLocation(loc){return loc?.country==="International"?[loc.internationalCountry,loc.city].filter(Boolean).join(", "):loc?.city?`${loc.city}, Pakistan`:"Pakistan";}
 function deliveryChargesForLocation(){const loc=currentOrderLocation();const c=data.deliveryCharges?.[loc.zone]||{};return {pkr:Number(c.pkr||0)||0,usd:Number(c.usd||0)||0,location:loc};}
 function toggleOrderLocationFields(){const country=document.getElementById("order-country")?.value||"";const pk=document.getElementById("pakistan-city-field"),other=document.getElementById("pakistan-other-city-field"),ic=document.getElementById("international-country-field"),iy=document.getElementById("international-city-field");[pk,other,ic,iy].forEach(x=>{if(x)x.style.display="none";});if(country==="Pakistan"){pk.style.display="block";if(document.getElementById("order-pakistan-city")?.value==="Others")other.style.display="block";}else if(country==="International"){ic.style.display="block";iy.style.display="block";}}
-function orderSummaryMarkup(){const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);const subtotal=items.reduce((s,x)=>s+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((s,x)=>s+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargesForLocation(),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${items.map(x=>`<li>${esc(x.name)} × ${x.qty} — USD $${esc(x.usdPrice||"—")} · PKR ${Number(x.price||0).toLocaleString()}</li>`).join("")}</ul><div>Delivery: ${esc(formatDeliveryLocation(delivery.location))} — USD $${delivery.usd.toLocaleString()} · PKR ${delivery.pkr.toLocaleString()}</div><strong style="display:block;margin-top:6px">Total: USD $${usdTotal.toLocaleString()} · PKR ${total.toLocaleString()}</strong>`}
+function orderSummaryMarkup(){const mode=data.priceDisplay||"both";const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);const subtotal=items.reduce((s,x)=>s+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((s,x)=>s+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargesForLocation(),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;const itemRows=items.map(x=>{const pkr=`${esc(data.currency)} ${Number(x.price||0).toLocaleString()}`;const usd=x.usdPrice?`USD $${Number(x.usdPrice).toLocaleString()}`:"";const display=mode==="pkr"?pkr:mode==="usd"?(usd||"USD —"):`${pkr} <span class="price-separator">·</span> ${usd||"USD —"}`;return `<li>${esc(x.name)} × ${x.qty} — ${display}</li>`}).join("");const deliveryDisplay=mode==="pkr"?`${esc(data.currency)} ${delivery.pkr.toLocaleString()}`:mode==="usd"?`USD $${delivery.usd.toLocaleString()}`:`${esc(data.currency)} ${delivery.pkr.toLocaleString()} <span class="price-separator">·</span> USD $${delivery.usd.toLocaleString()}`;return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${itemRows}</ul><div>Delivery: ${esc(formatDeliveryLocation(delivery.location))} — ${deliveryDisplay}</div><strong style="display:block;margin-top:6px">${totalMarkup(total,usdTotal)}</strong>`}
 function fillSavedCustomer(){try{const c=JSON.parse(localStorage.getItem("js_collections_customer")||"null");if(c){document.getElementById("order-name").value=c.name||"";document.getElementById("order-contact").value=c.contact||"";document.getElementById("order-email").value=c.email||"";document.getElementById("order-address").value=c.address||"";document.getElementById("order-country").value=c.country||"";document.getElementById("order-pakistan-city").value=c.country==="Pakistan"?(c.city==="Karachi"?"Karachi":"Others"):"";document.getElementById("order-pakistan-other-city").value=c.country==="Pakistan"&&c.city!=="Karachi"?(c.city||""):"";document.getElementById("order-international-country").value=c.internationalCountry||"";document.getElementById("order-international-city").value=c.country==="International"?(c.city||""):"";toggleOrderLocationFields();}}catch{}}
 function openOrder(){if(!cart.length){notify("Your cart is empty.");return}fillSavedCustomer();closeModal("cart-modal");openModal("order-details-modal")}
 document.getElementById("order-country").addEventListener("change",toggleOrderLocationFields);document.getElementById("order-pakistan-city").addEventListener("change",toggleOrderLocationFields);
