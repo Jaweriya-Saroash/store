@@ -10,7 +10,7 @@
       "email": "",
       "address": "abc def ghi"
     },
-    "status": "Payment confirmed",
+    "status": "Delivered",
     "statusHistory": [
       {
         "status": "Order received",
@@ -39,6 +39,10 @@
       {
         "status": "Payment confirmed",
         "at": "2026-09-06T13:15:57.939Z"
+      },
+      {
+        "status": "Delivered",
+        "at": "2026-09-06T13:21:53.834Z"
       }
     ],
     "comments": [],
