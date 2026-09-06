@@ -33,48 +33,5 @@
     "usdTotal": 0,
     "currency": "PKR",
     "customerId": "2f8c25a0914183dd"
-  },
-  {
-    "id": "62CB4FA92CE9AA3A57A8DD86",
-    "createdAt": "2026-09-06T08:23:55.241Z",
-    "orderNumber": "003",
-    "pin": "5513",
-    "customer": {
-      "name": "Saaid Saroash",
-      "contact": "03312497159",
-      "email": "hydramusic2009@gmail.com",
-      "address": "abc def ghi"
-    },
-    "status": "Payment confirmed",
-    "statusHistory": [
-      {
-        "status": "Order received",
-        "at": "2026-09-06T08:23:55.241Z"
-      },
-      {
-        "status": "Pending payment",
-        "at": "2026-09-06T08:25:07.340Z"
-      },
-      {
-        "status": "Payment confirmed",
-        "at": "2026-09-06T08:25:10.225Z"
-      }
-    ],
-    "comments": [],
-    "items": [
-      {
-        "id": "b2",
-        "name": "Untitled Product",
-        "price": "2500",
-        "usdPrice": "",
-        "oldPrice": "",
-        "oldUsdPrice": "",
-        "qty": 1
-      }
-    ],
-    "total": 2500,
-    "usdTotal": 0,
-    "currency": "PKR",
-    "customerId": "2f8c25a0914183dd"
   }
 ]
