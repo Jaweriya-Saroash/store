@@ -116,7 +116,7 @@ body:before{
   background:
     radial-gradient(circle at 20% 30%,rgba(255,255,255,.055),transparent 19%),
     radial-gradient(circle at 80% 70%,rgba(184,43,73,.045),transparent 20%);
-  filter:none;opacity:.9;
+  filter:blur(30px);
 }
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
@@ -125,11 +125,11 @@ button,input,textarea,select{font:inherit}
 .glass{
   background:linear-gradient(145deg,rgba(255,255,255,.11),rgba(255,255,255,.035));
   border:1px solid var(--line);box-shadow:var(--shadow);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
 }
 .topbar{
   position:sticky;top:0;z-index:1000;padding:14px 0;
-  background:rgba(5,12,22,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(5,12,22,.68);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.08);
 }
 .nav{
   min-height:62px;padding:8px 12px;border-radius:22px;display:flex;align-items:center;gap:18px;
@@ -179,7 +179,7 @@ button,input,textarea,select{font:inherit}
 .hero-slide img{width:100%;height:100%;object-fit:contain;object-position:center;display:block;background:linear-gradient(180deg,rgba(9,21,35,.08),rgba(6,14,24,.18))}
 .hero-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,17,.00) 30%,rgba(5,10,17,.62) 100%);pointer-events:none}
 body.light-theme .hero-card:after{background:linear-gradient(180deg,rgba(255,255,255,0) 42%,rgba(255,252,247,.12) 100%)}
-.hero-control{position:absolute;top:50%;z-index:3;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.20);background:rgba(8,15,25,.42);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .22s ease,background .22s ease,border-color .22s ease}
+.hero-control{position:absolute;top:50%;z-index:3;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.20);background:rgba(8,15,25,.42);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(12px);transition:transform .22s ease,background .22s ease,border-color .22s ease}
 .hero-control:hover{transform:translateY(-50%) scale(1.06);background:rgba(8,15,25,.66);border-color:rgba(255,255,255,.34)}
 .hero-prev{left:16px}.hero-next{right:16px}
 .hero-dots{position:absolute;right:25px;bottom:25px;z-index:3;display:flex;gap:7px;align-items:center}
@@ -197,12 +197,11 @@ body.light-theme .hero-card:after{background:linear-gradient(180deg,rgba(255,255
 .section-head h2,.about h2,.contact h2{font-family:"Playfair Display",serif;font-size:clamp(2rem,4vw,3rem);margin:5px 0}
 .sub{color:var(--muted);max-width:650px;line-height:1.65}
 .filter{width:min(330px,100%);background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:#fff;outline:0}
-.section-block{margin-bottom:52px;content-visibility:auto;contain-intrinsic-size:360px 420px}
+.section-block{margin-bottom:52px}
 .section-title{display:flex;align-items:center;gap:10px;margin:0 0 17px;font-size:1.6rem}
 .section-title:before{content:"";width:26px;height:3px;border-radius:99px;background:var(--red2)}
 .products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
 .card{
-  contain:layout paint;
   position:relative;overflow:hidden;border-radius:20px;cursor:pointer;
   background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.11);
   transition:transform .22s,box-shadow .22s,border-color .22s
@@ -213,7 +212,7 @@ body.light-theme .hero-card:after{background:linear-gradient(180deg,rgba(255,255
 .card:hover .card-img img{transform:scale(1.04)}
 .card-body{padding:15px}
 .card h4{margin:0 0 8px;font-size:1rem}
-.price{font-weight:800;color:#efbbc7;display:flex;align-items:center;flex-wrap:wrap;gap:5px}.price del{opacity:.58;font-weight:600}.price strong{font-weight:800}.price-separator{opacity:.45}.dual-price strong{white-space:nowrap}
+.price{font-weight:800;color:#efbbc7}
 .specs{color:#9eacbb;font-size:.85rem;line-height:1.55;min-height:40px}
 .card-actions{display:flex;gap:8px;margin-top:13px}.card-actions button{flex:1}
 .empty{
@@ -238,7 +237,7 @@ footer{padding:16px 0 22px;border-top:1px solid rgba(255,255,255,.08);margin-top
 .socials{display:flex;gap:7px}.socials a{width:36px;height:36px;display:grid;place-items:center;border-radius:13px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
 .muted{color:#8f9cac;font-size:.88rem}
 
-.modal-wrap{position:fixed;inset:0;z-index:3000;display:none;padding:18px;background:rgba(0,0,0,.68);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);overflow:auto}
+.modal-wrap{position:fixed;inset:0;z-index:3000;display:none;padding:18px;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);overflow:auto}
 .modal-wrap.show{display:block}
 .modal{width:min(850px,100%);margin:4vh auto;padding:24px;border-radius:27px;position:relative}
 .modal.small{width:min(540px,100%)}
@@ -313,7 +312,7 @@ body.light-theme .login-status{color:#746b63}
 body.light-theme .login-status.error{color:#a33b46}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em}
 button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
-.price del{opacity:.58;font-weight:600;margin-right:2px}.price strong{font-weight:800}.order-progress-step{display:flex;gap:10px;align-items:flex-start}.sold-out .card-img img{filter:grayscale(.18)}.sold-badge{position:absolute;left:12px;top:12px;padding:6px 9px;border-radius:99px;background:rgba(20,20,20,.78);color:#fff;font-size:.74rem;font-weight:800;letter-spacing:.3px;z-index:2}.card-img{position:relative}.product-switch{display:inline-flex!important;align-items:center;gap:6px;margin:0!important;padding:8px 9px;border:1px solid var(--line);border-radius:11px;white-space:nowrap}.product-switch input{accent-color:var(--red2)}.order-item{padding:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035);margin-bottom:12px}.order-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding-bottom:11px;border-bottom:1px solid var(--line)}.order-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:16px;padding-top:13px}.order-grid b{display:block;margin-bottom:5px}.order-grid ul{margin:0;padding-left:18px}.order-grid li{margin:2px 0}.admin-tab{flex-shrink:0}.detail-price del{opacity:.6}@media(max-width:1100px){.order-grid{grid-template-columns:1fr 1fr}}
+.price del{opacity:.58;font-weight:600;margin-right:5px}.price strong{font-weight:800}.order-progress-step{display:flex;gap:10px;align-items:flex-start}.sold-out .card-img img{filter:grayscale(.18)}.sold-badge{position:absolute;left:12px;top:12px;padding:6px 9px;border-radius:99px;background:rgba(20,20,20,.78);color:#fff;font-size:.74rem;font-weight:800;letter-spacing:.3px;z-index:2}.card-img{position:relative}.product-switch{display:inline-flex!important;align-items:center;gap:6px;margin:0!important;padding:8px 9px;border:1px solid var(--line);border-radius:11px;white-space:nowrap}.product-switch input{accent-color:var(--red2)}.order-item{padding:16px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.035);margin-bottom:12px}.order-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding-bottom:11px;border-bottom:1px solid var(--line)}.order-grid{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:16px;padding-top:13px}.order-grid b{display:block;margin-bottom:5px}.order-grid ul{margin:0;padding-left:18px}.order-grid li{margin:2px 0}.admin-tab{flex-shrink:0}.detail-price del{opacity:.6}@media(max-width:1100px){.order-grid{grid-template-columns:1fr 1fr}}
 .status-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}.order-status-btn{font-size:.75rem;padding:7px 9px}.order-status-btn.active-status{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:transparent}.order-status-btn:disabled{opacity:.45}body.light-theme .order-status-btn:not(.active-status){color:#2a211c;background:rgba(255,255,255,.55);border-color:rgba(55,43,34,.16)}
 @media (prefers-reduced-motion: reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 
@@ -337,10 +336,6 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
  .form-row,.admin-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center;gap:10px}.socials{gap:6px}.socials a{width:34px;height:34px} footer{padding:10px 0 12px;margin-top:8px}.footer-inner{gap:7px}.muted{font-size:.8rem}
  .admin-product{grid-template-columns:56px 1fr}.admin-product .row-actions{grid-column:2}.order-grid{grid-template-columns:1fr}.order-head{flex-direction:column}.product-switch{font-size:.78rem}
 }
-
-#notification{z-index:10000 !important;pointer-events:none;}
-#notification #notif-text{color:#fff !important;background:rgba(16,24,36,.97) !important;border-color:rgba(255,255,255,.20) !important;font-weight:600;line-height:1.45;max-width:min(92vw,680px);text-align:center;}
-body.light-theme #notification #notif-text{color:#17120f !important;background:rgba(255,253,249,.98) !important;border-color:rgba(55,43,34,.18) !important;box-shadow:0 18px 45px rgba(55,43,34,.20) !important;}
 </style>
 </head>
 <body>
@@ -461,16 +456,16 @@ body.light-theme #notification #notif-text{color:#17120f !important;background:r
 <div id="order-details-modal" class="modal-wrap">
  <div class="modal glass small">
   <div class="modal-head"><h3>Order Details</h3><button class="x" onclick="closeModal('order-details-modal')" aria-label="Close order details">&times;</button></div>
-  <form id="order-details-form" novalidate>
+  <form id="order-details-form">
    <div class="field"><label>Name</label><input class="form-control" id="order-name" required></div>
    <div class="field"><label>Contact No.</label><input class="form-control" id="order-contact" required></div>
    <div class="field"><label>Email <span class="muted">(optional)</span></label><input class="form-control" id="order-email" type="email" autocomplete="email" placeholder="Optional"></div>
    <div class="field"><label>Address</label><textarea class="form-control" id="order-address" rows="3" required></textarea></div>
    <div class="field"><label>Country</label><select class="form-control" id="order-country" required><option value="">Select country</option><option value="Pakistan">Pakistan</option><option value="International">International</option></select></div>
-   <div class="field" id="order-city-pakistan-wrap" style="display:none"><label>City</label><select class="form-control" id="order-city-pakistan"><option value="Karachi">Karachi</option><option value="Others">Others</option></select></div>
-   <div class="field" id="order-city-other-wrap" style="display:none"><label>City name</label><input class="form-control" id="order-city-other" placeholder="Enter city"></div>
-   <div class="field" id="order-city-international-wrap" style="display:none"><label>City</label><input class="form-control" id="order-city-international" placeholder="Enter city"></div>
-   <div class="field" id="order-international-country-wrap" style="display:none"><label>Country name</label><input class="form-control" id="order-international-country" placeholder="Enter country"></div>
+   <div class="field" id="pakistan-city-field" style="display:none"><label>City</label><select class="form-control" id="order-pakistan-city"><option value="">Select city</option><option value="Karachi">Karachi</option><option value="Others">Others</option></select></div>
+   <div class="field" id="pakistan-other-city-field" style="display:none"><label>City name</label><input class="form-control" id="order-pakistan-other-city" placeholder="Enter city name"></div>
+   <div class="field" id="international-country-field" style="display:none"><label>Country name</label><input class="form-control" id="order-international-country" placeholder="Enter country name"></div>
+   <div class="field" id="international-city-field" style="display:none"><label>City</label><input class="form-control" id="order-international-city" placeholder="Enter city name"></div>
    <button class="btn" type="submit" id="review-order-btn">Review Order</button>
   </form>
  </div>
@@ -568,18 +563,16 @@ body.light-theme #notification #notif-text{color:#17120f !important;background:r
     </div>
     <div id="settings-panel" class="panel">
       <div class="admin-grid">
-       <div class="field"><label>Website price display</label><select class="form-control" data-setting="currencyDisplay"><option value="both">PKR + USD</option><option value="pkr">PKR only</option><option value="usd">USD only</option></select></div>
        <div class="field"><label>Local theme preference</label><select class="form-control" data-setting="theme"><option value="light">Light</option><option value="dark">Dark / Navy</option></select></div>
       </div>
-      <div class="notice"><strong>Delivery charges</strong><div class="muted" style="margin-top:5px">Set delivery charges separately for each destination. Enter both PKR and USD values.</div></div>
-      <div class="admin-grid">
-       <div class="field"><label>Karachi, Pakistan — PKR</label><input class="form-control" data-delivery="karachi.pkr" inputmode="decimal" placeholder="0"></div>
-       <div class="field"><label>Karachi, Pakistan — USD</label><input class="form-control" data-delivery="karachi.usd" inputmode="decimal" placeholder="0"></div>
-       <div class="field"><label>Others, Pakistan — PKR</label><input class="form-control" data-delivery="othersPakistan.pkr" inputmode="decimal" placeholder="0"></div>
-       <div class="field"><label>Others, Pakistan — USD</label><input class="form-control" data-delivery="othersPakistan.usd" inputmode="decimal" placeholder="0"></div>
-       <div class="field"><label>International — PKR</label><input class="form-control" data-delivery="international.pkr" inputmode="decimal" placeholder="0"></div>
-       <div class="field"><label>International — USD</label><input class="form-control" data-delivery="international.usd" inputmode="decimal" placeholder="0"></div>
-      </div>
+      <div class="field"><label>Delivery charges</label><div class="admin-grid">
+       <div class="field"><label>Karachi, Pakistan — PKR</label><input class="form-control" data-delivery="karachi.pkr" inputmode="decimal" placeholder="e.g. 250"></div>
+       <div class="field"><label>Karachi, Pakistan — USD</label><input class="form-control" data-delivery="karachi.usd" inputmode="decimal" placeholder="e.g. 1.00"></div>
+       <div class="field"><label>Others, Pakistan — PKR</label><input class="form-control" data-delivery="pakistanOther.pkr" inputmode="decimal" placeholder="e.g. 350"></div>
+       <div class="field"><label>Others, Pakistan — USD</label><input class="form-control" data-delivery="pakistanOther.usd" inputmode="decimal" placeholder="e.g. 1.50"></div>
+       <div class="field"><label>International — PKR</label><input class="form-control" data-delivery="international.pkr" inputmode="decimal" placeholder="e.g. 2500"></div>
+       <div class="field"><label>International — USD</label><input class="form-control" data-delivery="international.usd" inputmode="decimal" placeholder="e.g. 10.00"></div>
+      </div></div>
       <div class="notice">Your admin password and GitHub token stay server-side. The repository is selected by the <code>GITHUB_REPO_URL</code> environment variable, so the browser never receives the token.</div>
       <div class="row"><button class="btn" onclick="saveGeneralSettings()">Save Settings</button><button class="btn danger" onclick="resetSite()">Reset site data</button></div>
     </div>
@@ -596,8 +589,7 @@ const DEFAULT_DATA = {
   about:"At Jaweriya Saroash, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation\u2014each piece is carefully crafted to celebrate individuality and inspire confidence.",
   logo:"logo.jpg",
   currency:"PKR",
-  currencyDisplay:"both",
-  deliveryCharges:{karachi:{pkr:"",usd:""},othersPakistan:{pkr:"",usd:""},international:{pkr:"",usd:""}},
+  deliveryCharges:{karachi:{pkr:"",usd:""},pakistanOther:{pkr:"",usd:""},international:{pkr:"",usd:""}},
   theme:"light",
   links:{
     instagram:"https://instagram.com/jaweriyas_official",
@@ -636,9 +628,9 @@ function loadData(){
   if(!saved){const fresh=structuredClone(DEFAULT_DATA);fresh.theme=localTheme;return fresh;}
   try{
     const parsed=JSON.parse(saved);
-    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links}};
-    merged.sections=(merged.sections||[]).map(s=>({...s,products:(s.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??p.dollarPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??p.dollarOldPrice??""),soldOut:Boolean(p.soldOut)}))}));
-    merged.currencyDisplay=(merged.currencyDisplay==="usd"||merged.currencyDisplay==="pkr")?merged.currencyDisplay:"both";
+    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(parsed.deliveryCharges||{})}};
+    merged.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(merged.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(merged.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(merged.deliveryCharges?.international||{})}};
+    merged.sections=(merged.sections||[]).map(s=>({...s,products:(s.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
     merged.theme=localTheme;
     return merged;
   }catch(e){const fallback=structuredClone(DEFAULT_DATA);fallback.theme=localTheme;return fallback;}
@@ -653,9 +645,9 @@ async function loadServerData(){
     }
     if(remote && remote.data){
       const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
-      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},theme:localTheme};
-      data.currencyDisplay=(data.currencyDisplay==="usd"||data.currencyDisplay==="pkr")?data.currencyDisplay:"both";
-      data.sections=(data.sections||[]).map(sec=>({...sec,products:(sec.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??p.dollarPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??p.dollarOldPrice??""),soldOut:Boolean(p.soldOut)}))}));
+      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(remote.data.deliveryCharges||{})},theme:localTheme};
+      data.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(data.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(data.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(data.deliveryCharges?.international||{})}};
+      data.sections=(data.sections||[]).map(sec=>({...sec,products:(sec.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
       const cacheData=structuredClone(data); delete cacheData.theme;
       localStorage.setItem("js_collections_cached_data",JSON.stringify(cacheData));
       renderSite(); applyTheme(localTheme);
@@ -707,12 +699,7 @@ async function persistData(message="Update JS Collections",options={}){
 }
 function notify(msg){
   const n=document.getElementById("notification"), t=document.getElementById("notif-text");
-  if(!n||!t)return;
-  t.textContent=msg;
-  n.style.display="block";
-  n.classList.add("show");
-  clearTimeout(n._timer);
-  n._timer=setTimeout(()=>{n.classList.remove("show");n.style.display="none"},4200);
+  t.textContent=msg;n.style.display="block";n.classList.add("show");clearTimeout(n._timer);n._timer=setTimeout(()=>{n.classList.remove("show");n.style.display="none"},2600);
 }
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 
@@ -805,28 +792,12 @@ function renderProducts(query=""){
   if(!any) wrap.innerHTML='<div class="empty">No matching products found.</div>';
 }
 function priceMarkup(p){
-  const mode=data.currencyDisplay||"both";
-  const pkr=String(p.price??"").trim();
-  const usd=String(p.usdPrice??"").trim();
-  const oldPkr=String(p.oldPrice??"").trim();
-  const oldUsd=String(p.oldUsdPrice??"").trim();
-  const parts=[];
-  if(mode!=="usd"){
-    const current=pkr?`${esc(data.currency)} ${esc(pkr)}`:"";
-    const old=oldPkr?`<del>${esc(data.currency)} ${esc(oldPkr)}</del> `:"";
-    if(current||old)parts.push(`${old}<strong>${current}</strong>`);
-  }
-  if(mode!=="pkr"){
-    const current=usd?`USD $${esc(usd)}`:"";
-    const old=oldUsd?`<del>USD $${esc(oldUsd)}</del> `:"";
-    if(current||old)parts.push(`${old}<strong>${current}</strong>`);
-  }
-  if(!parts.length)return '<div class="price">Price on request</div>';
-  return `<div class="price ${parts.length>1?'dual-price':''}">${parts.join('<span class="price-separator">·</span>')}</div>`;
+  const old=String(p.oldPrice??"").trim();
+  return old?`<div class="price"><del>${esc(data.currency)} ${esc(old)}</del> <strong>${esc(data.currency)} ${esc(p.price)}</strong></div>`:`<div class="price">${esc(data.currency)} ${esc(p.price)}</div>`;
 }
 function productCard(p){
   const el=document.createElement("article");el.className="card"+(p.soldOut?" sold-out":"");
-  el.innerHTML=`<div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy" decoding="async" onerror="this.style.opacity=.25">${p.soldOut?'<span class="sold-badge">Sold Out</span>':''}</div>
+  el.innerHTML=`<div class="card-img"><img src="${esc(p.image)}" alt="${esc(p.name)}" onerror="this.style.opacity=.25">${p.soldOut?'<span class="sold-badge">Sold Out</span>':''}</div>
    <div class="card-body"><h4>${esc(p.name)}</h4>${priceMarkup(p)}<div class="specs">${esc(p.specs)}</div>
    <div class="card-actions"><button class="btn outline tiny add" ${p.soldOut?'disabled':''}>${p.soldOut?'Sold Out':'Add to Cart'}</button><button class="btn tiny buy" ${p.soldOut?'disabled':''}>${p.soldOut?'Unavailable':'Buy Now'}</button></div></div>`;
   el.addEventListener("click",e=>{if(e.target.tagName==="BUTTON")return;showProduct(p.id)});
@@ -863,20 +834,18 @@ function buyNow(id){const p=findProduct(id);if(!p)return;if(p.soldOut){notify("T
 function updateCartCount(){document.getElementById("cart-count").textContent=cart.reduce((a,x)=>a+x.qty,0)}
 function renderCart(){
   const box=document.getElementById("cart-items");box.innerHTML="";
-  if(!cart.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';document.getElementById("cart-total").textContent=(data.currencyDisplay||"both")==="usd"?"Total: USD $0":(data.currencyDisplay||"both")==="pkr"?`Total: ${data.currency} 0`:`Total: ${data.currency} 0 · USD $0`;return}
+  if(!cart.length){box.innerHTML='<div class="empty">Your cart is empty.</div>';document.getElementById("cart-total").textContent="Total: PKR 0";return}
   let total=0;
   cart.forEach(item=>{
     const p=findProduct(item.id);if(!p)return;
     total += Number(p.price||0)*item.qty;
     const row=document.createElement("div");row.className="cart-row";
-    row.innerHTML=`<img src="${esc(p.image)}" loading="lazy" decoding="async"><div><strong>${esc(p.name)}</strong><div class="muted">${priceMarkup(p)} each</div></div>
+    row.innerHTML=`<img src="${esc(p.image)}"><div><strong>${esc(p.name)}</strong><div class="muted">${priceMarkup(p)} each</div></div>
     <div class="cart-actions"><span class="qty"><button class="btn outline tiny minus">−</button><b>${item.qty}</b><button class="btn outline tiny plus">+</button></span><button class="btn danger tiny remove">Remove</button></div>`;
     row.querySelector(".minus").onclick=()=>changeQty(item.id,-1);row.querySelector(".plus").onclick=()=>changeQty(item.id,1);row.querySelector(".remove").onclick=()=>removeCart(item.id);
     box.appendChild(row);
   });
-  const usdTotal=cart.reduce((sum,item)=>{const p=findProduct(item.id);return sum+(p?Number(p.usdPrice||0)*item.qty:0)},0);
-  const mode=data.currencyDisplay||"both";
-  document.getElementById("cart-total").textContent=mode==="usd"?`Total: USD $${usdTotal.toLocaleString()}`:mode==="pkr"?`Total: ${data.currency} ${total.toLocaleString()}`:`Total: ${data.currency} ${total.toLocaleString()} · USD $${usdTotal.toLocaleString()}`;
+  document.getElementById("cart-total").textContent=`Total: ${data.currency} ${total.toLocaleString()}`;
 }
 function changeQty(id,d){const x=cart.find(i=>i.id===id);if(!x)return;x.qty+=d;if(x.qty<=0)cart=cart.filter(i=>i.id!==id);localStorage.setItem("js_collections_cart",JSON.stringify(cart));renderCart();updateCartCount()}
 function removeCart(id){cart=cart.filter(i=>i.id!==id);localStorage.setItem("js_collections_cart",JSON.stringify(cart));renderCart();updateCartCount()}
@@ -898,8 +867,7 @@ function renderContact(){
    <a href="${esc(data.links.email)}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>`;
 }
 
-let productSearchTimer=null;
-document.getElementById("product-filter").addEventListener("input",e=>{clearTimeout(productSearchTimer);productSearchTimer=setTimeout(()=>renderProducts(e.target.value),120);});
+document.getElementById("product-filter").addEventListener("input",e=>renderProducts(e.target.value));
 document.getElementById("cart-open").addEventListener("click",openCart);
 document.querySelectorAll(".modal-wrap").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)closeModal(m.id)}));
 document.getElementById("contact-form").addEventListener("submit",e=>{e.preventDefault();const body=`Name: ${name.value}%0D%0AEmail: ${email.value}%0D%0AMessage: ${message.value}`;window.location.href=`${data.links.email}?subject=Contact Inquiry&body=${body}`});
@@ -951,7 +919,7 @@ document.querySelectorAll(".admin-tab").forEach(btn=>btn.addEventListener("click
 function populateAdmin(){
  document.querySelectorAll("[data-setting]").forEach(el=>el.value=data[el.dataset.setting]??"");
  document.querySelectorAll("[data-link]").forEach(el=>el.value=data.links[el.dataset.link]??"");
- document.querySelectorAll("[data-delivery]").forEach(el=>{const [zone,key]=el.dataset.delivery.split(".");el.value=(data.deliveryCharges?.[zone]?.[key]??"");});
+ document.querySelectorAll("[data-delivery]").forEach(el=>{const [zone,currency]=el.dataset.delivery.split(".");el.value=data.deliveryCharges?.[zone]?.[currency]??"";});
  renderAdminSections();
 }
 async function saveSettings(){
@@ -968,8 +936,6 @@ async function saveGeneralSettings(){
  const themeInput=document.querySelector('[data-setting="theme"]');
  const nextTheme=themeInput?.value||"light";
  document.querySelectorAll('[data-setting]:not([data-setting="theme"])').forEach(el=>data[el.dataset.setting]=el.value);
- data.deliveryCharges=data.deliveryCharges||{karachi:{pkr:"",usd:""},othersPakistan:{pkr:"",usd:""},international:{pkr:"",usd:""}};
- document.querySelectorAll("[data-delivery]").forEach(el=>{const [zone,key]=el.dataset.delivery.split(".");data.deliveryCharges[zone]=data.deliveryCharges[zone]||{pkr:"",usd:""};data.deliveryCharges[zone][key]=el.value.trim();});
  applyTheme(nextTheme);
  const saved=await persistData("Updated site settings");
  data.theme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
@@ -1009,7 +975,7 @@ async function loadAdminOrders(){
  try{
   const r=await fetch("/api/orders",{headers:{"Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},cache:"no-store"}); const result=await r.json().catch(()=>({})); if(!r.ok)throw new Error(result.error||"Unable to load orders.");
   const orders=Array.isArray(result.orders)?result.orders:[], statusOptions=Array.isArray(result.statuses)?result.statuses:[];
-  const renderOrder=o=>{const c=o.customer||{},items=(o.items||[]).map(x=>`<li>${esc(x.name)} × ${esc(x.qty)} — USD $${esc(x.usdPrice||"—")} · ${esc(o.currency||data.currency)} ${Number(x.price||0).toLocaleString()}</li>`).join(""),statuses=statusOptions.map(st=>`<button type="button" class="btn outline tiny order-status-btn ${st===o.status?'active-status':''}" data-order="${esc(o.orderNumber)}" data-status="${esc(st)}">${esc(st)}</button>`).join(""),comments=(o.comments||[]).map(cmt=>`<div class="muted" style="margin:5px 0">${esc(cmt.at?formatOrderDate(cmt.at):"")} — ${esc(cmt.text)}</div>`).join("");const location=[c.countryName&&c.country==="International"?c.countryName:c.country,c.city].filter(Boolean).join(" · ");return `<article class="order-item"><div class="order-head"><div><strong>Order #${esc(o.orderNumber||"---")}</strong><div class="muted">${esc(formatOrderDate(o.createdAt))}</div><div class="muted">PIN: ${esc(o.pin||"")}</div></div><strong>USD $${Number(o.usdTotal||0).toLocaleString()} · ${esc(o.currency||data.currency)} ${Number(o.total||0).toLocaleString()}</strong></div><div class="order-grid"><div><b>Customer</b><div>${esc(c.name||"")}</div><div>${esc(c.contact||"")}</div>${c.email?`<div>${esc(c.email)}</div>`:""}<div style="margin-top:10px"><b>Status</b><div class="status-actions">${statuses}</div></div></div><div><b>Address</b><div>${esc(c.address||"")}</div>${location?`<div>${esc(location)}</div>`:""}<div style="margin-top:7px"><b>Delivery charge</b><div>PKR ${Number(o.deliveryCharge?.pkr||0).toLocaleString()} · USD $${Number(o.deliveryCharge?.usd||0).toLocaleString()}</div></div><div style="margin-top:10px"><b>Comments</b>${comments||'<div class="muted">No comments.</div>'}<div class="row" style="margin-top:7px"><input class="form-control tiny order-comment-input" data-order="${esc(o.orderNumber)}" placeholder="Add comment"><button class="btn outline tiny order-comment-btn" data-order="${esc(o.orderNumber)}">Add</button><button class="btn danger tiny order-delete-btn" data-order="${esc(o.orderNumber)}">Delete order</button></div></div></div><div><b>Items</b><ul>${items}</ul></div></div></article>`};
+  const renderOrder=o=>{const c=o.customer||{},items=(o.items||[]).map(x=>`<li>${esc(x.name)} × ${esc(x.qty)} — USD $${esc(x.usdPrice||"—")} · ${esc(o.currency||data.currency)} ${Number(x.price||0).toLocaleString()}</li>`).join(""),statuses=statusOptions.map(st=>`<button type="button" class="btn outline tiny order-status-btn ${st===o.status?'active-status':''}" data-order="${esc(o.orderNumber)}" data-status="${esc(st)}">${esc(st)}</button>`).join(""),comments=(o.comments||[]).map(cmt=>`<div class="muted" style="margin:5px 0">${esc(cmt.at?formatOrderDate(cmt.at):"")} — ${esc(cmt.text)}</div>`).join("");return `<article class="order-item"><div class="order-head"><div><strong>Order #${esc(o.orderNumber||"---")}</strong><div class="muted">${esc(formatOrderDate(o.createdAt))}</div><div class="muted">PIN: ${esc(o.pin||"")}</div></div><strong>USD $${Number(o.usdTotal||0).toLocaleString()} · ${esc(o.currency||data.currency)} ${Number(o.total||0).toLocaleString()}</strong></div><div class="order-grid"><div><b>Customer</b><div>${esc(c.name||"")}</div><div>${esc(c.contact||"")}</div>${c.email?`<div>${esc(c.email)}</div>`:""}<div style="margin-top:10px"><b>Status</b><div class="status-actions">${statuses}</div></div></div><div><b>Address</b><div>${esc(c.address||"")}</div><div class="muted" style="margin-top:5px">Location: ${esc(c.country==="International"?[c.internationalCountry,c.city].filter(Boolean).join(", "):((c.city||"")?c.city+", Pakistan":"Pakistan"))}</div><div class="muted" style="margin-top:3px">Delivery: PKR ${Number(o.deliveryCharges?.pkr||0).toLocaleString()} · USD $${Number(o.deliveryCharges?.usd||0).toLocaleString()}</div><div style="margin-top:10px"><b>Comments</b>${comments||'<div class="muted">No comments.</div>'}<div class="row" style="margin-top:7px"><input class="form-control tiny order-comment-input" data-order="${esc(o.orderNumber)}" placeholder="Add comment"><button class="btn outline tiny order-comment-btn" data-order="${esc(o.orderNumber)}">Add</button><button class="btn danger tiny order-delete-btn" data-order="${esc(o.orderNumber)}">Delete order</button></div></div></div><div><b>Items</b><ul>${items}</ul></div></div></article>`};
   const active=orders.filter(o=>o.status!=="Delivered"),delivered=orders.filter(o=>o.status==="Delivered"); box.innerHTML=active.length?active.map(renderOrder).join(""):'<div class="empty">No active orders.</div>'; deliveredBox.innerHTML=delivered.length?delivered.map(renderOrder).join(""):'<div class="empty">No delivered orders.</div>';
   document.querySelectorAll(".order-status-btn").forEach(btn=>btn.addEventListener("click",async()=>{if(btn.disabled||btn.classList.contains("active-status"))return;document.querySelectorAll(`.order-status-btn[data-order="${CSS.escape(btn.dataset.order)}"]`).forEach(b=>b.disabled=true);try{const r=await fetch("/api/orders",{method:"PATCH",headers:{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},body:JSON.stringify({orderNumber:btn.dataset.order,status:btn.dataset.status})});const out=await r.json().catch(()=>({}));if(!r.ok)throw new Error(out.error||"Unable to update order.");await loadAdminOrders();}catch(e){notify(e.message||"Unable to update order.");}}));
   document.querySelectorAll(".order-comment-btn").forEach(btn=>btn.addEventListener("click",async()=>{const input=document.querySelector(`.order-comment-input[data-order="${CSS.escape(btn.dataset.order)}"]`);if(!input?.value.trim())return;try{const r=await fetch("/api/orders",{method:"PUT",headers:{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},body:JSON.stringify({orderNumber:btn.dataset.order,comment:input.value.trim()})});const out=await r.json().catch(()=>({}));if(!r.ok)throw new Error(out.error||"Unable to save comment.");await loadAdminOrders();}catch(e){notify(e.message||"Unable to save comment.");}}));
@@ -1017,43 +983,18 @@ async function loadAdminOrders(){
  }catch(err){box.innerHTML=`<div class="notice">${esc(err.message||"Unable to load orders.")}</div>`;deliveredBox.innerHTML="";}
 }
 async function loadAdminCustomers(){const box=document.getElementById("admin-customers");if(!box)return;box.innerHTML='<div class="empty">Loading customers…</div>';try{const r=await fetch("/api/customers",{headers:{"Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},cache:"no-store"});const out=await r.json().catch(()=>({}));if(!r.ok)throw new Error(out.error||"Unable to load customers.");const customers=Array.isArray(out.customers)?out.customers:[];box.innerHTML=customers.length?customers.map(c=>`<article class="order-item"><div class="order-head"><div><strong>${esc(c.name||"")}</strong><div class="muted">${esc(c.contact||"")}${c.email?` · ${esc(c.email)}`:""}</div></div><strong>PIN: ${esc(c.pin||"")}</strong></div><div class="muted" style="margin-top:9px">${esc(c.address||"")}</div><div style="margin-top:10px"><b>Shopping history</b><div class="muted" style="margin-top:5px">${(c.orderNumbers||[]).map(n=>`#${esc(n)}`).join(" · ")||"No orders yet"}</div></div><div class="muted" style="margin-top:7px">First order: ${esc(formatOrderDate(c.createdAt))} · Last order: ${esc(formatOrderDate(c.lastOrderAt))}</div><button class="btn danger tiny customer-delete-btn" data-customer="${esc(c.id)}" style="margin-top:11px">Delete customer</button></article>`).join(""):'<div class="empty">No customers yet.</div>';document.querySelectorAll(".customer-delete-btn").forEach(btn=>btn.addEventListener("click",async()=>{if(!confirm("Delete this customer record? Existing orders will remain."))return;try{const r=await fetch("/api/customers",{method:"DELETE",headers:{"Content-Type":"application/json","Authorization":"Bearer "+(sessionStorage.getItem("js_admin_session")||"")},body:JSON.stringify({id:btn.dataset.customer})});const out=await r.json().catch(()=>({}));if(!r.ok)throw new Error(out.error||"Unable to delete customer.");await loadAdminCustomers();}catch(e){notify(e.message||"Unable to delete customer.");}}));}catch(e){box.innerHTML=`<div class="notice">${esc(e.message||"Unable to load customers.")}</div>`}}
-function orderSummaryMarkup(customer){
-  const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);
-  const basePkr=items.reduce((sum,x)=>sum+Number(x.price||0)*x.qty,0),baseUsd=items.reduce((sum,x)=>sum+Number(x.usdPrice||0)*x.qty,0);
-  const delivery=deliveryChargeFor(customer);
-  const total=basePkr+delivery.pkr,usdTotal=baseUsd+delivery.usd;
-  const mode=data.currencyDisplay||"both";
-  const itemLines=items.map(x=>{const pkr=mode==="usd"?"":`${data.currency} ${Number(x.price||0).toLocaleString()}`;const usd=mode==="pkr"?"":`USD $${x.usdPrice||"—"}`;return `<li>${esc(x.name)} × ${x.qty}${pkr||usd?` — ${[usd,pkr].filter(Boolean).join(" · ")}`:""}</li>`}).join("");
-  const deliveryText=mode==="usd"?`USD $${delivery.usd.toLocaleString()}`:mode==="pkr"?`${data.currency} ${delivery.pkr.toLocaleString()}`:`${data.currency} ${delivery.pkr.toLocaleString()} · USD $${delivery.usd.toLocaleString()}`;
-  const totalText=mode==="usd"?`USD $${usdTotal.toLocaleString()}`:mode==="pkr"?`${data.currency} ${total.toLocaleString()}`:`${data.currency} ${total.toLocaleString()} · USD $${usdTotal.toLocaleString()}`;
-  return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${itemLines}</ul><div style="margin-top:8px"><b>Delivery:</b> ${deliveryText}</div><strong style="display:block;margin-top:6px">Total: ${totalText}</strong>`;
-}
-function fillSavedCustomer(){try{const c=JSON.parse(localStorage.getItem("js_collections_customer")||"null");if(c){document.getElementById("order-name").value=c.name||"";document.getElementById("order-contact").value=c.contact||"";document.getElementById("order-email").value=c.email||"";document.getElementById("order-address").value=c.address||"";document.getElementById("order-country").value=c.country||"";if(c.country==="Pakistan"){document.getElementById("order-city-pakistan").value=c.city==="Karachi"?"Karachi":"Others";document.getElementById("order-city-other").value=c.city!="Karachi"?(c.city||""):"";}else if(c.country==="International"){document.getElementById("order-international-country").value=c.countryName||"";document.getElementById("order-city-international").value=c.city||"";}updateDeliveryFields();}}catch{}}
-function openOrder(){if(!cart.length){notify("Your cart is empty.");return}fillSavedCustomer();updateDeliveryFields();closeModal("cart-modal");openModal("order-details-modal")}
-document.getElementById("order-country").addEventListener("change",updateDeliveryFields);
-document.getElementById("order-city-pakistan").addEventListener("change",updateDeliveryFields);
-document.getElementById("order-details-form").addEventListener("submit",e=>{
- e.preventDefault();
- const nameEl=document.getElementById("order-name"),contactEl=document.getElementById("order-contact"),emailEl=document.getElementById("order-email"),addressEl=document.getElementById("order-address"),countryEl=document.getElementById("order-country");
- const customer={name:nameEl.value.trim(),contact:contactEl.value.trim(),email:emailEl.value.trim(),address:addressEl.value.trim(),country:countryEl.value};
- nameEl.setCustomValidity("");contactEl.setCustomValidity("");emailEl.setCustomValidity("");addressEl.setCustomValidity("");countryEl.setCustomValidity("");
- if(!customer.name){nameEl.setCustomValidity("Please enter your name.");nameEl.reportValidity();return;}
- if(!customer.contact){contactEl.setCustomValidity("Please enter your contact number.");contactEl.reportValidity();return;}
- if(customer.email&&!emailEl.checkValidity()){emailEl.setCustomValidity("Please enter a valid email address, or leave it blank.");emailEl.reportValidity();return;}
- if(!customer.address){addressEl.setCustomValidity("Please enter your address.");addressEl.reportValidity();return;}
- if(!customer.country){countryEl.setCustomValidity("Please select a country option.");countryEl.reportValidity();return;}
- const selection=deliverySelection();
- if(customer.country==="Pakistan"&&!selection.city){document.getElementById("order-city-other").setCustomValidity("Please enter your city.");document.getElementById("order-city-other").reportValidity();return;}
- if(customer.country==="International"&&(!selection.countryName||!selection.city)){const el=!selection.countryName?document.getElementById("order-international-country"):document.getElementById("order-city-international");el.setCustomValidity("Please complete this field.");el.reportValidity();return;}
- customer.city=selection.city;customer.zone=selection.zone;if(selection.countryName)customer.countryName=selection.countryName;
- localStorage.setItem("js_collections_customer",JSON.stringify(customer));
- document.getElementById("confirm-customer-details").innerHTML=`<strong>Confirm your details</strong><div style="margin-top:8px"><b>Name:</b> ${esc(customer.name)}</div><div><b>Contact:</b> ${esc(customer.contact)}</div>${customer.email?`<div><b>Email:</b> ${esc(customer.email)}</div>`:""}<div><b>Address:</b> ${esc(customer.address)}</div><div><b>Country:</b> ${esc(customer.countryName||customer.country)}</div><div><b>City:</b> ${esc(customer.city)}</div>`;
- document.getElementById("order-summary").innerHTML=orderSummaryMarkup(customer);
- closeModal("order-details-modal");openModal("order-confirm-modal");
-});
-document.getElementById("submit-order-btn").addEventListener("click",async()=>{const btn=document.getElementById("submit-order-btn");if(btn.disabled)return;btn.disabled=true;btn.textContent="Placing…";try{const customer={name:document.getElementById("order-name").value.trim(),contact:document.getElementById("order-contact").value.trim(),email:document.getElementById("order-email").value.trim(),address:document.getElementById("order-address").value.trim(),country:document.getElementById("order-country").value,city:(document.getElementById("order-country").value==="Pakistan"?(document.getElementById("order-city-pakistan").value==="Others"?document.getElementById("order-city-other").value.trim():"Karachi"):document.getElementById("order-city-international").value.trim()),countryName:document.getElementById("order-country").value==="International"?document.getElementById("order-international-country").value.trim():""};customer.zone=customer.country==="International"?"international":(customer.city==="Karachi"?"karachi":"othersPakistan");localStorage.setItem("js_collections_customer",JSON.stringify(customer));const items=cart.map(x=>{const p=findProduct(x.id);return p?{id:p.id,name:p.name,price:p.price,usdPrice:p.usdPrice||"",oldPrice:p.oldPrice||"",oldUsdPrice:p.oldUsdPrice||"",qty:x.qty}:null}).filter(Boolean);const basePkr=items.reduce((a,x)=>a+Number(x.price||0)*x.qty,0),baseUsd=items.reduce((a,x)=>a+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargeFor(customer),total=basePkr+delivery.pkr,usdTotal=baseUsd+delivery.usd;const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer,items,total,usdTotal,currency:data.currency,deliveryCharge:delivery})});const result=await r.json().catch(()=>({}));if(!r.ok)throw new Error(result.error||"Unable to submit order.");cart=[];localStorage.removeItem("js_collections_cart");updateCartCount();closeModal("order-confirm-modal");document.getElementById("order-success-content").innerHTML=`<div class="notice"><strong>Your order has been received.</strong><div style="margin-top:10px">Order number: <strong>${esc(result.orderNumber)}</strong></div><div>Tracking PIN: <strong>${esc(result.pin)}</strong></div><div class="muted" style="margin-top:10px">Keep these details to track your order from the website.</div>${result.emailWarning?`<div class="muted" style="margin-top:10px">${esc(result.emailWarning)}</div>`:""}</div>`;openModal("order-success-modal")}catch(err){notify(err.message||"Unable to submit order.");}finally{btn.disabled=false;btn.textContent="Place Order";}});
+function currentOrderLocation(){const country=document.getElementById("order-country")?.value||"";if(country==="Pakistan"){const t=document.getElementById("order-pakistan-city")?.value||"";const city=t==="Others"?(document.getElementById("order-pakistan-other-city")?.value.trim()||""):t;return {country,city,zone:t==="Karachi"?"karachi":"pakistanOther"};}if(country==="International")return {country,internationalCountry:document.getElementById("order-international-country")?.value.trim()||"",city:document.getElementById("order-international-city")?.value.trim()||"",zone:"international"};return {country,city:"",zone:""};}
+function formatDeliveryLocation(loc){return loc?.country==="International"?[loc.internationalCountry,loc.city].filter(Boolean).join(", "):loc?.city?`${loc.city}, Pakistan`:"Pakistan";}
+function deliveryChargesForLocation(){const loc=currentOrderLocation();const c=data.deliveryCharges?.[loc.zone]||{};return {pkr:Number(c.pkr||0)||0,usd:Number(c.usd||0)||0,location:loc};}
+function toggleOrderLocationFields(){const country=document.getElementById("order-country")?.value||"";const pk=document.getElementById("pakistan-city-field"),other=document.getElementById("pakistan-other-city-field"),ic=document.getElementById("international-country-field"),iy=document.getElementById("international-city-field");[pk,other,ic,iy].forEach(x=>{if(x)x.style.display="none";});if(country==="Pakistan"){pk.style.display="block";if(document.getElementById("order-pakistan-city")?.value==="Others")other.style.display="block";}else if(country==="International"){ic.style.display="block";iy.style.display="block";}}
+function orderSummaryMarkup(){const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);const subtotal=items.reduce((s,x)=>s+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((s,x)=>s+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargesForLocation(),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${items.map(x=>`<li>${esc(x.name)} × ${x.qty} — USD $${esc(x.usdPrice||"—")} · PKR ${Number(x.price||0).toLocaleString()}</li>`).join("")}</ul><div>Delivery: ${esc(formatDeliveryLocation(delivery.location))} — USD $${delivery.usd.toLocaleString()} · PKR ${delivery.pkr.toLocaleString()}</div><strong style="display:block;margin-top:6px">Total: USD $${usdTotal.toLocaleString()} · PKR ${total.toLocaleString()}</strong>`}
+function fillSavedCustomer(){try{const c=JSON.parse(localStorage.getItem("js_collections_customer")||"null");if(c){document.getElementById("order-name").value=c.name||"";document.getElementById("order-contact").value=c.contact||"";document.getElementById("order-email").value=c.email||"";document.getElementById("order-address").value=c.address||"";document.getElementById("order-country").value=c.country||"";document.getElementById("order-pakistan-city").value=c.country==="Pakistan"?(c.city==="Karachi"?"Karachi":"Others"):"";document.getElementById("order-pakistan-other-city").value=c.country==="Pakistan"&&c.city!=="Karachi"?(c.city||""):"";document.getElementById("order-international-country").value=c.internationalCountry||"";document.getElementById("order-international-city").value=c.country==="International"?(c.city||""):"";toggleOrderLocationFields();}}catch{}}
+function openOrder(){if(!cart.length){notify("Your cart is empty.");return}fillSavedCustomer();closeModal("cart-modal");openModal("order-details-modal")}
+document.getElementById("order-country").addEventListener("change",toggleOrderLocationFields);document.getElementById("order-pakistan-city").addEventListener("change",toggleOrderLocationFields);
+document.getElementById("order-details-form").addEventListener("submit",e=>{e.preventDefault();const location=currentOrderLocation(),customer={name:document.getElementById("order-name").value.trim(),contact:document.getElementById("order-contact").value.trim(),email:document.getElementById("order-email").value.trim(),address:document.getElementById("order-address").value.trim(),...location};if(!customer.name||!customer.contact||!customer.address||!customer.country){notify("Please complete the required order fields.");return;}if(customer.country==="Pakistan"&&(!customer.city||(customer.city===""))){notify("Please select or enter your city.");return;}if(customer.country==="International"&&(!customer.internationalCountry||!customer.city)){notify("Please enter your country and city.");return;}localStorage.setItem("js_collections_customer",JSON.stringify(customer));document.getElementById("confirm-customer-details").innerHTML=`<strong>Confirm your details</strong><div style="margin-top:8px"><b>Name:</b> ${esc(customer.name)}</div><div><b>Contact:</b> ${esc(customer.contact)}</div>${customer.email?`<div><b>Email:</b> ${esc(customer.email)}</div>`:""}<div><b>Address:</b> ${esc(customer.address)}</div><div><b>Location:</b> ${esc(formatDeliveryLocation(customer))}</div>`;document.getElementById("order-summary").innerHTML=orderSummaryMarkup();closeModal("order-details-modal");openModal("order-confirm-modal")});
+document.getElementById("submit-order-btn").addEventListener("click",async()=>{const btn=document.getElementById("submit-order-btn");if(btn.disabled)return;btn.disabled=true;btn.textContent="Placing…";try{const customer={name:document.getElementById("order-name").value.trim(),contact:document.getElementById("order-contact").value.trim(),email:document.getElementById("order-email").value.trim(),address:document.getElementById("order-address").value.trim(),...currentOrderLocation()},items=cart.map(x=>{const p=findProduct(x.id);return p?{id:p.id,name:p.name,price:p.price,usdPrice:p.usdPrice||"",oldPrice:p.oldPrice||"",oldUsdPrice:p.oldUsdPrice||"",qty:x.qty}:null}).filter(Boolean),delivery=deliveryChargesForLocation(),subtotal=items.reduce((a,x)=>a+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((a,x)=>a+Number(x.usdPrice||0)*x.qty,0),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;const r=await fetch("/api/orders",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({customer,items,subtotal,usdSubtotal,deliveryCharges:delivery,total,usdTotal,currency:"PKR"})});const result=await r.json().catch(()=>({}));if(!r.ok)throw new Error(result.error||"Unable to submit order.");cart=[];localStorage.removeItem("js_collections_cart");updateCartCount();closeModal("order-confirm-modal");document.getElementById("order-success-content").innerHTML=`<div class="notice"><strong>Your order has been received.</strong><div style="margin-top:10px">Order number: <strong>${esc(result.orderNumber)}</strong></div><div>Tracking PIN: <strong>${esc(result.pin)}</strong></div><div class="muted" style="margin-top:10px">Keep these details to track your order from the website.</div>${result.emailWarning?`<div class="muted" style="margin-top:10px">${esc(result.emailWarning)}</div>`:""}</div>`;openModal("order-success-modal")}catch(err){notify(err.message||"Unable to submit order.");}finally{btn.disabled=false;btn.textContent="Place Order";}});
 function openTrackOrder(event){if(event)event.preventDefault();closeModal("track-modal");document.getElementById("track-result").style.display="none";document.getElementById("track-result").innerHTML="";openModal("track-modal");setTimeout(()=>document.getElementById("track-order-number").focus(),50)}
-function renderTrackResult(order){const items=(order.items||[]).map(x=>`<li>${esc(x.name)} × ${esc(x.qty)} — USD $${esc(x.usdPrice||"—")} · ${esc(order.currency)} ${Number(x.price||0).toLocaleString()}</li>`).join("");const statuses=["Order received","Pending payment","Payment confirmed","Processing and packaging","Out for delivery","Delivered"],current=Math.max(0,statuses.indexOf(order.status));const progress=statuses.map((s,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;margin:9px 0"><span style="width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:${i<=current?'var(--red2)':'rgba(127,127,127,.18)'};color:${i<=current?'#fff':'var(--cream)'};font-size:.75rem">${i<current?'✓':i+1}</span><div><strong>${esc(s)}</strong><div class="muted">${i<current?'Completed':i===current?'Current status':'Waiting'}</div></div></div>`).join("");document.getElementById("track-result").style.display="block";document.getElementById("track-result").innerHTML=`<div class="notice"><strong>Order #${esc(order.orderNumber)}</strong><div style="margin-top:7px">Current status: <strong>${esc(order.status)}</strong></div><div class="muted" style="margin-top:5px">Placed ${esc(formatOrderDate(order.createdAt))}</div><div style="margin-top:12px"><b>Order progress</b>${progress}</div><ul style="margin:10px 0 0;padding-left:18px">${items}</ul><div style="margin-top:10px"><b>Delivery:</b> USD $${Number(order.deliveryCharge?.usd||0).toLocaleString()} · ${esc(order.currency)} ${Number(order.deliveryCharge?.pkr||0).toLocaleString()}</div><strong style="display:block;margin-top:6px">Total: USD $${Number(order.usdTotal||0).toLocaleString()} · ${esc(order.currency)} ${Number(order.total||0).toLocaleString()}</strong></div>`}
+function renderTrackResult(order){const items=(order.items||[]).map(x=>`<li>${esc(x.name)} × ${esc(x.qty)} — USD $${esc(x.usdPrice||"—")} · ${esc(order.currency)} ${Number(x.price||0).toLocaleString()}</li>`).join("");const statuses=["Order received","Pending payment","Payment confirmed","Processing and packaging","Out for delivery","Delivered"],current=Math.max(0,statuses.indexOf(order.status));const progress=statuses.map((s,i)=>`<div style="display:flex;gap:10px;align-items:flex-start;margin:9px 0"><span style="width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:${i<=current?'var(--red2)':'rgba(127,127,127,.18)'};color:${i<=current?'#fff':'var(--cream)'};font-size:.75rem">${i<current?'✓':i+1}</span><div><strong>${esc(s)}</strong><div class="muted">${i<current?'Completed':i===current?'Current status':'Waiting'}</div></div></div>`).join("");document.getElementById("track-result").style.display="block";document.getElementById("track-result").innerHTML=`<div class="notice"><strong>Order #${esc(order.orderNumber)}</strong><div style="margin-top:7px">Current status: <strong>${esc(order.status)}</strong></div><div class="muted" style="margin-top:5px">Placed ${esc(formatOrderDate(order.createdAt))}</div><div style="margin-top:12px"><b>Order progress</b>${progress}</div><ul style="margin:10px 0 0;padding-left:18px">${items}</ul><strong style="display:block;margin-top:10px">Total: USD $${Number(order.usdTotal||0).toLocaleString()} · ${esc(order.currency)} ${Number(order.total||0).toLocaleString()}</strong></div>`}
 function toggleThemeNoop(){}
 
 async function resetSite(){
