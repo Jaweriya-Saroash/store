@@ -6,7 +6,7 @@
   "logo": "logo.jpg",
   "currency": "PKR",
   "links": {
-    "instagram": "https://instagram.com/js",
+    "instagram": "https://instagram.com/jsofficialcollections",
     "whatsapp": "https://wa.me/923239834815",
     "email": "mailto:jsofficialcollections@gmail.com",
     "display": "Instagram · WhatsApp · Email"
@@ -18,35 +18,35 @@
       "products": [
         {
           "id": "b1",
-          "name": "",
+          "name": "Untitled Product",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "1.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
           "id": "b2",
-          "name": "",
+          "name": "Untitled Product",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "2.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
           "id": "b3",
-          "name": "",
+          "name": "Untitled Product",
           "price": "2500",
           "specs": "Soft premium fabric · Double bed · Elegant print · Comfort finish",
           "image": "3.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
@@ -57,7 +57,7 @@
           "image": "4.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
@@ -68,7 +68,7 @@
           "image": "5.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
@@ -79,7 +79,7 @@
           "image": "6.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
@@ -90,7 +90,7 @@
           "image": "7.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         },
         {
@@ -101,7 +101,7 @@
           "image": "8.jpg",
           "oldPrice": "",
           "soldOut": false,
-          "usdPrice": "9.02",
+          "usdPrice": "",
           "oldUsdPrice": ""
         }
       ]
