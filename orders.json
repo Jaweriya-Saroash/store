@@ -33,40 +33,5 @@
     "usdTotal": 9.02,
     "currency": "PKR",
     "customerId": "92c1cbc926581935"
-  },
-  {
-    "id": "81C8417ED71F19D4975E68E5",
-    "createdAt": "2026-09-06T13:23:14.315Z",
-    "orderNumber": "002",
-    "pin": "9628",
-    "customer": {
-      "name": "Jaweriya Saroash",
-      "contact": "03239834815",
-      "email": "",
-      "address": "abc def ghi"
-    },
-    "status": "Order received",
-    "statusHistory": [
-      {
-        "status": "Order received",
-        "at": "2026-09-06T13:23:14.315Z"
-      }
-    ],
-    "comments": [],
-    "items": [
-      {
-        "id": "b1",
-        "name": "Lavender Orchard",
-        "price": "2500",
-        "usdPrice": "9.02",
-        "oldPrice": "",
-        "oldUsdPrice": "",
-        "qty": 1
-      }
-    ],
-    "total": 2500,
-    "usdTotal": 9.02,
-    "currency": "PKR",
-    "customerId": "92c1cbc926581935"
   }
 ]
