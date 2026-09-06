@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="JS Collections — premium bedsheets and carefully selected fabrics.">
-<title>JS Collections</title>
+<meta name="description" content="Sharmin's — premium bedsheets and carefully selected fabrics.">
+<title>Sharmin's</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -343,9 +343,9 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 <header class="topbar">
   <div class="container">
     <nav class="nav glass">
-      <a class="brand" href="#home" title="JS Collections">
-        <img id="nav-logo" class="logo" src="logo.jpg" alt="JS Collections logo">
-        <strong id="brand-name">JS Collections</strong>
+      <a class="brand" href="#home" title="Sharmin's">
+        <img id="nav-logo" class="logo" src="logo.jpg" alt="Sharmin's logo">
+        <strong id="brand-name">Sharmin's</strong>
       </a>
       <div class="navlinks">
         <a href="#products">Shop</a><a href="#about">About Us</a><a href="#contact">Contact</a><a href="#" onclick="openTrackOrder(event)">Track Order</a>
@@ -369,7 +369,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 <section id="home" class="hero">
  <div class="container hero-grid">
   <div>
-   <div class="kicker"><i class="fa-solid fa-sparkles"></i> JS Collections</div>
+   <div class="kicker"><i class="fa-solid fa-sparkles"></i> Sharmin's</div>
    <h1 id="hero-title">Style That <span>Speaks</span></h1>
    <p id="hero-motto">Using every aspect—from fabric to accessories—our collections celebrate individuality and empower women.</p>
    <div class="hero-actions"><a class="btn" href="#products">Explore Collection</a><a class="btn outline" href="#contact">Contact Us</a></div>
@@ -400,11 +400,11 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 <section id="about" class="section">
  <div class="container about-grid">
    <div class="glass about-copy">
-     <div class="kicker">About JS Collections</div><h2>Made to feel beautiful.</h2>
+     <div class="kicker">About Sharmin's</div><h2>Made to feel beautiful.</h2>
      <p id="about-text"></p>
      <p>From everyday comfort to statement fabrics, every collection is presented with a focus on texture, quality, and timeless appeal.</p>
    </div>
-   <div class="about-logo"><img id="about-logo" class="logo-large" src="main-logo.jpg" alt="JS Collections"></div>
+   <div class="about-logo"><img id="about-logo" class="logo-large" src="logo.jpg" alt="Sharmin's"></div>
  </div>
 </section>
 
@@ -428,7 +428,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 
 <footer>
  <div class="container footer-inner">
-  <div><strong id="footer-brand">JS Collections</strong><div class="muted">© <span id="year"></span> All rights reserved.</div></div>
+  <div><strong id="footer-brand">Sharmin's</strong><div class="muted">© <span id="year"></span> All rights reserved.</div></div>
   <div class="socials" id="socials"></div>
  </div>
 </footer>
@@ -515,7 +515,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 
 <div id="admin-panel" class="admin-overlay">
  <div class="admin-shell glass">
-  <div class="admin-top"><div><strong>JS Collections Admin</strong><div class="muted" id="admin-save-status">Connected to the GitHub content sync.</div></div><div class="row"><span class="save-indicator" id="save-indicator"><i class="fa-solid fa-cloud"></i> Ready</span><button class="btn danger tiny" onclick="closeAdmin()">Close</button></div></div>
+  <div class="admin-top"><div><strong>Sharmin's Admin</strong><div class="muted" id="admin-save-status">Connected to the GitHub content sync.</div></div><div class="row"><span class="save-indicator" id="save-indicator"><i class="fa-solid fa-cloud"></i> Ready</span><button class="btn danger tiny" onclick="closeAdmin()">Close</button></div></div>
   <div class="admin-body">
    <aside class="admin-nav">
     <button class="admin-tab active" data-panel="content-panel">Brand & Content</button>
@@ -534,6 +534,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
        <div class="field"><label>Hero motto</label><textarea class="form-control" data-setting="motto" rows="4"></textarea></div>
        <div class="field"><label>About text</label><textarea class="form-control" data-setting="about" rows="4"></textarea></div>
        <div class="field"><label>Logo image filename / URL</label><input class="form-control" data-setting="logo"></div>
+       <div class="field"><label>About Us image filename / URL</label><input class="form-control" data-setting="mainLogo"></div>
       </div>
       <button class="btn" onclick="saveSettings()">Save Brand & Content</button>
     </div>
@@ -588,11 +589,12 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
 
 <script>
 const DEFAULT_DATA = {
-  brand:"JS Collections",
+  brand:"Sharmin's",
   heroTitle:"Style That Speaks",
   motto:"Using every aspect\u2014from fabric to accessories\u2014our collections celebrate individuality and empower women.",
   about:"At Jaweriya Saroash, we believe in empowering women through distinctive fashion. Our collections blend timeless elegance with modern innovation\u2014each piece is carefully crafted to celebrate individuality and inspire confidence.",
   logo:"logo.jpg",
+  mainLogo:"main-logo.jpg",
   currency:"PKR",
   priceDisplay:"both",
   deliveryCharges:{karachi:{pkr:"",usd:""},pakistanOther:{pkr:"",usd:""},international:{pkr:"",usd:""}},
@@ -636,7 +638,7 @@ function loadData(){
   if(!saved){const fresh=structuredClone(DEFAULT_DATA);fresh.theme=localTheme;return fresh;}
   try{
     const parsed=JSON.parse(saved);
-    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(parsed.deliveryCharges||{})},deliveryComment:parsed.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:parsed.deliveryDisplay??DEFAULT_DATA.deliveryDisplay};
+    const merged={...structuredClone(DEFAULT_DATA),...parsed,mainLogo:parsed.mainLogo??DEFAULT_DATA.mainLogo,links:{...DEFAULT_DATA.links,...parsed.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(parsed.deliveryCharges||{})},deliveryComment:parsed.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:parsed.deliveryDisplay??DEFAULT_DATA.deliveryDisplay};
     merged.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(merged.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(merged.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(merged.deliveryCharges?.international||{})}};
     merged.sections=(merged.sections||[]).map(s=>({...s,products:(s.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
     merged.theme=localTheme;
@@ -653,7 +655,7 @@ async function loadServerData(){
     }
     if(remote && remote.data){
       const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
-      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(remote.data.deliveryCharges||{})},deliveryComment:remote.data.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:remote.data.deliveryDisplay??DEFAULT_DATA.deliveryDisplay,theme:localTheme};
+      data={...structuredClone(DEFAULT_DATA),...remote.data,mainLogo:remote.data.mainLogo??DEFAULT_DATA.mainLogo,links:{...DEFAULT_DATA.links,...remote.data.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(remote.data.deliveryCharges||{})},deliveryComment:remote.data.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:remote.data.deliveryDisplay??DEFAULT_DATA.deliveryDisplay,theme:localTheme};
       data.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(data.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(data.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(data.deliveryCharges?.international||{})}};
       data.sections=(data.sections||[]).map(sec=>({...sec,products:(sec.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
       const cacheData=structuredClone(data); delete cacheData.theme;
@@ -675,7 +677,7 @@ function setSaveStatus(state,text){
   indicator.innerHTML=state==="saving"?'<i class="fa-solid fa-spinner fa-spin"></i> Saving':state==="saved"?'<i class="fa-solid fa-circle-check"></i> Saved':state==="error"?'<i class="fa-solid fa-circle-exclamation"></i> Needs attention':'<i class="fa-solid fa-cloud"></i> Ready';
   label.textContent=text;
 }
-async function persistData(message="Update JS Collections",options={}){
+async function persistData(message="Update Sharmin's",options={}){
  const silent=Boolean(options.silent);
   const publishData=structuredClone(data); delete publishData.theme;
   localStorage.setItem("js_collections_cached_data",JSON.stringify(publishData));
@@ -699,7 +701,7 @@ async function persistData(message="Update JS Collections",options={}){
     }catch(e){
       setSaveStatus("error",e.message||"GitHub save failed. Check your server settings.");
       if(!silent)notify(e.message||"GitHub save failed.");
-      console.error("JS Collections save error:",e);
+      console.error("Sharmin's save error:",e);
       return false;
     }finally{saveInFlight=null;}
   })();
@@ -719,7 +721,7 @@ function renderSite(){
   document.getElementById("hero-motto").textContent=data.motto;
   document.getElementById("about-text").textContent=data.about;
   document.getElementById("nav-logo").src=data.logo;
-  document.getElementById("about-logo").src=data.logo;
+  document.getElementById("about-logo").src=data.mainLogo||"main-logo.jpg";
   setupHeroCarousel();
   document.getElementById("year").textContent=new Date().getFullYear();
   renderProducts();
@@ -1023,7 +1025,7 @@ function renderTrackResult(order){const items=(order.items||[]).map(x=>`<li>${es
 function toggleThemeNoop(){}
 
 async function resetSite(){
- if(!confirm("Reset all JS Collections customizations to the default template?"))return;
+ if(!confirm("Reset all Sharmin's customizations to the default template?"))return;
  data=structuredClone(DEFAULT_DATA);
  data.theme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
  renderSite();
