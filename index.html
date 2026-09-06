@@ -336,6 +336,7 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
  .form-row,.admin-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;text-align:center;gap:10px}.socials{gap:6px}.socials a{width:34px;height:34px} footer{padding:10px 0 12px;margin-top:8px}.footer-inner{gap:7px}.muted{font-size:.8rem}
  .admin-product{grid-template-columns:56px 1fr}.admin-product .row-actions{grid-column:2}.order-grid{grid-template-columns:1fr}.order-head{flex-direction:column}.product-switch{font-size:.78rem}
 }
+.segmented-control{display:flex;gap:8px;flex-wrap:wrap}.segment-btn{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--cream);padding:9px 12px;border-radius:11px;cursor:pointer;transition:.2s}.segment-btn.active,.segment-btn:hover{background:rgba(184,43,73,.16);border-color:rgba(184,43,73,.4)}
 </style>
 </head>
 <body>
@@ -573,7 +574,10 @@ button:disabled{cursor:not-allowed;opacity:.58;transform:none!important}
        <div class="field"><label>Others, Pakistan — USD</label><input class="form-control" data-delivery="pakistanOther.usd" inputmode="decimal" placeholder="e.g. 1.50"></div>
        <div class="field"><label>International — PKR</label><input class="form-control" data-delivery="international.pkr" inputmode="decimal" placeholder="e.g. 2500"></div>
        <div class="field"><label>International — USD</label><input class="form-control" data-delivery="international.usd" inputmode="decimal" placeholder="e.g. 10.00"></div>
-      </div></div>
+      </div>
+      <div class="field" style="margin-top:14px"><label>Delivery message</label><textarea class="form-control" data-setting="deliveryComment" rows="3" placeholder="e.g. The delivery charges as per the area will be paid by the customers on delivery."></textarea></div>
+      <div class="field"><label>Delivery display</label><div class="segmented-control" role="group" aria-label="Delivery display mode"><button type="button" class="segment-btn" data-delivery-display="comment">Comment only</button><button type="button" class="segment-btn" data-delivery-display="charges">Delivery charges only</button><button type="button" class="segment-btn" data-delivery-display="both">Both</button></div><input type="hidden" data-setting="deliveryDisplay" value="both"></div>
+      </div>
       <div class="notice">Your admin password and GitHub token stay server-side. The repository is selected by the <code>GITHUB_REPO_URL</code> environment variable, so the browser never receives the token.</div>
       <div class="row"><button class="btn" onclick="saveGeneralSettings()">Save Settings</button><button class="btn danger" onclick="resetSite()">Reset site data</button></div>
     </div>
@@ -592,6 +596,8 @@ const DEFAULT_DATA = {
   currency:"PKR",
   priceDisplay:"both",
   deliveryCharges:{karachi:{pkr:"",usd:""},pakistanOther:{pkr:"",usd:""},international:{pkr:"",usd:""}},
+  deliveryComment:"The delivery charges as per the area will be paid by the customers on delivery.",
+  deliveryDisplay:"both",
   theme:"light",
   links:{
     instagram:"https://instagram.com/jaweriyas_official",
@@ -630,7 +636,7 @@ function loadData(){
   if(!saved){const fresh=structuredClone(DEFAULT_DATA);fresh.theme=localTheme;return fresh;}
   try{
     const parsed=JSON.parse(saved);
-    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(parsed.deliveryCharges||{})}};
+    const merged={...structuredClone(DEFAULT_DATA),...parsed,links:{...DEFAULT_DATA.links,...parsed.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(parsed.deliveryCharges||{})},deliveryComment:parsed.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:parsed.deliveryDisplay??DEFAULT_DATA.deliveryDisplay};
     merged.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(merged.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(merged.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(merged.deliveryCharges?.international||{})}};
     merged.sections=(merged.sections||[]).map(s=>({...s,products:(s.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
     merged.theme=localTheme;
@@ -647,7 +653,7 @@ async function loadServerData(){
     }
     if(remote && remote.data){
       const localTheme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
-      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(remote.data.deliveryCharges||{})},theme:localTheme};
+      data={...structuredClone(DEFAULT_DATA),...remote.data,links:{...DEFAULT_DATA.links,...remote.data.links},deliveryCharges:{...structuredClone(DEFAULT_DATA.deliveryCharges),...(remote.data.deliveryCharges||{})},deliveryComment:remote.data.deliveryComment??DEFAULT_DATA.deliveryComment,deliveryDisplay:remote.data.deliveryDisplay??DEFAULT_DATA.deliveryDisplay,theme:localTheme};
       data.deliveryCharges={karachi:{...DEFAULT_DATA.deliveryCharges.karachi,...(data.deliveryCharges?.karachi||{})},pakistanOther:{...DEFAULT_DATA.deliveryCharges.pakistanOther,...(data.deliveryCharges?.pakistanOther||{})},international:{...DEFAULT_DATA.deliveryCharges.international,...(data.deliveryCharges?.international||{})}};
       data.sections=(data.sections||[]).map(sec=>({...sec,products:(sec.products||[]).map(p=>({...p,usdPrice:String(p.usdPrice??""),oldPrice:String(p.oldPrice??""),oldUsdPrice:String(p.oldUsdPrice??""),soldOut:Boolean(p.soldOut)}))}));
       const cacheData=structuredClone(data); delete cacheData.theme;
@@ -937,6 +943,7 @@ function populateAdmin(){
  document.querySelectorAll("[data-setting]").forEach(el=>el.value=data[el.dataset.setting]??"");
  document.querySelectorAll("[data-link]").forEach(el=>el.value=data.links[el.dataset.link]??"");
  document.querySelectorAll("[data-delivery]").forEach(el=>{const [zone,currency]=el.dataset.delivery.split(".");el.value=data.deliveryCharges?.[zone]?.[currency]??"";});
+ const deliveryMode=document.querySelector("[data-setting=deliveryDisplay]"); if(deliveryMode) deliveryMode.value=data.deliveryDisplay||"both"; document.querySelectorAll("[data-delivery-display]").forEach(btn=>btn.classList.toggle("active",btn.dataset.deliveryDisplay===(data.deliveryDisplay||"both")));
  renderAdminSections();
 }
 async function saveSettings(){
@@ -958,6 +965,7 @@ async function saveGeneralSettings(){
  data.theme=localStorage.getItem(THEME_STORAGE_KEY)||"light";
  return saved;
 }
+document.querySelectorAll("[data-delivery-display]").forEach(btn=>btn.addEventListener("click",()=>{data.deliveryDisplay=btn.dataset.deliveryDisplay;const hidden=document.querySelector("[data-setting=deliveryDisplay]");if(hidden)hidden.value=data.deliveryDisplay;document.querySelectorAll("[data-delivery-display]").forEach(x=>x.classList.toggle("active",x===btn));}));
 function renderAdminSections(){
  const wrap=document.getElementById("admin-sections");wrap.innerHTML="";
  data.sections.forEach((s,si)=>{
@@ -1004,7 +1012,7 @@ function currentOrderLocation(){const country=document.getElementById("order-cou
 function formatDeliveryLocation(loc){return loc?.country==="International"?[loc.internationalCountry,loc.city].filter(Boolean).join(", "):loc?.city?`${loc.city}, Pakistan`:"Pakistan";}
 function deliveryChargesForLocation(){const loc=currentOrderLocation();const c=data.deliveryCharges?.[loc.zone]||{};return {pkr:Number(c.pkr||0)||0,usd:Number(c.usd||0)||0,location:loc};}
 function toggleOrderLocationFields(){const country=document.getElementById("order-country")?.value||"";const pk=document.getElementById("pakistan-city-field"),other=document.getElementById("pakistan-other-city-field"),ic=document.getElementById("international-country-field"),iy=document.getElementById("international-city-field");[pk,other,ic,iy].forEach(x=>{if(x)x.style.display="none";});if(country==="Pakistan"){pk.style.display="block";if(document.getElementById("order-pakistan-city")?.value==="Others")other.style.display="block";}else if(country==="International"){ic.style.display="block";iy.style.display="block";}}
-function orderSummaryMarkup(){const mode=data.priceDisplay||"both";const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);const subtotal=items.reduce((s,x)=>s+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((s,x)=>s+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargesForLocation(),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;const itemRows=items.map(x=>{const pkr=`${esc(data.currency)} ${Number(x.price||0).toLocaleString()}`;const usd=x.usdPrice?`USD $${Number(x.usdPrice).toLocaleString()}`:"";const display=mode==="pkr"?pkr:mode==="usd"?(usd||"USD —"):`${pkr} <span class="price-separator">·</span> ${usd||"USD —"}`;return `<li>${esc(x.name)} × ${x.qty} — ${display}</li>`}).join("");const deliveryDisplay=mode==="pkr"?`${esc(data.currency)} ${delivery.pkr.toLocaleString()}`:mode==="usd"?`USD $${delivery.usd.toLocaleString()}`:`${esc(data.currency)} ${delivery.pkr.toLocaleString()} <span class="price-separator">·</span> USD $${delivery.usd.toLocaleString()}`;return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${itemRows}</ul><div>Delivery: ${esc(formatDeliveryLocation(delivery.location))} — ${deliveryDisplay}</div><strong style="display:block;margin-top:6px">${totalMarkup(total,usdTotal)}</strong>`}
+function orderSummaryMarkup(){const mode=data.priceDisplay||"both";const items=cart.map(x=>{const p=findProduct(x.id);return p?{...p,qty:x.qty}:null}).filter(Boolean);const subtotal=items.reduce((s,x)=>s+Number(x.price||0)*x.qty,0),usdSubtotal=items.reduce((s,x)=>s+Number(x.usdPrice||0)*x.qty,0),delivery=deliveryChargesForLocation(),total=subtotal+delivery.pkr,usdTotal=usdSubtotal+delivery.usd;const itemRows=items.map(x=>{const pkr=`${esc(data.currency)} ${Number(x.price||0).toLocaleString()}`;const usd=x.usdPrice?`USD $${Number(x.usdPrice).toLocaleString()}`:"";const display=mode==="pkr"?pkr:mode==="usd"?(usd||"USD —"):`${pkr} <span class="price-separator">·</span> ${usd||"USD —"}`;return `<li>${esc(x.name)} × ${x.qty} — ${display}</li>`}).join("");const chargeMode=data.deliveryDisplay||"both";const deliveryText=data.deliveryComment?.trim()||"";const deliveryChargesText=`Delivery: ${esc(formatDeliveryLocation(delivery.location))} — ${mode==="pkr"?`${esc(data.currency)} ${delivery.pkr.toLocaleString()}`:mode==="usd"?`USD $${delivery.usd.toLocaleString()}`:`${esc(data.currency)} ${delivery.pkr.toLocaleString()} <span class="price-separator">·</span> USD $${delivery.usd.toLocaleString()}`}`;const deliveryBlock=chargeMode==="comment"?(deliveryText?`<div class="muted" style="margin-top:8px">${esc(deliveryText)}</div>`:""):chargeMode==="charges"?`<div style="margin-top:8px">${deliveryChargesText}</div>`:`<div style="margin-top:8px">${deliveryChargesText}</div>${deliveryText?`<div class="muted" style="margin-top:6px">${esc(deliveryText)}</div>`:""}`;return `<strong>Order Summary</strong><ul style="margin:8px 0 10px;padding-left:18px">${itemRows}</ul>${deliveryBlock}<strong style="display:block;margin-top:6px">${totalMarkup(total,usdTotal)}</strong>`}
 function fillSavedCustomer(){try{const c=JSON.parse(localStorage.getItem("js_collections_customer")||"null");if(c){document.getElementById("order-name").value=c.name||"";document.getElementById("order-contact").value=c.contact||"";document.getElementById("order-email").value=c.email||"";document.getElementById("order-address").value=c.address||"";document.getElementById("order-country").value=c.country||"";document.getElementById("order-pakistan-city").value=c.country==="Pakistan"?(c.city==="Karachi"?"Karachi":"Others"):"";document.getElementById("order-pakistan-other-city").value=c.country==="Pakistan"&&c.city!=="Karachi"?(c.city||""):"";document.getElementById("order-international-country").value=c.internationalCountry||"";document.getElementById("order-international-city").value=c.country==="International"?(c.city||""):"";toggleOrderLocationFields();}}catch{}}
 function openOrder(){if(!cart.length){notify("Your cart is empty.");return}fillSavedCustomer();closeModal("cart-modal");openModal("order-details-modal")}
 document.getElementById("order-country").addEventListener("change",toggleOrderLocationFields);document.getElementById("order-pakistan-city").addEventListener("change",toggleOrderLocationFields);
